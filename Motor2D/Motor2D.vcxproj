@@ -76,6 +76,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="j1Collision.cpp" />
+    <ClCompile Include="j1Logic.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -89,6 +91,9 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="j1Collision.h" />
+    <ClInclude Include="j1Logic.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="p2DynArray.h" />
@@ -106,6 +111,9 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\map1.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

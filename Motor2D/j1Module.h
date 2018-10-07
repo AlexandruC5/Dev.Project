@@ -69,6 +69,11 @@ public:
 		return true;
 	}
 
+	virtual void OnCollision(Collider* C1, Collider* C2)
+	{
+
+	}
+
 public:
 
 	p2SString	name;

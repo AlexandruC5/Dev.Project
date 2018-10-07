@@ -4,6 +4,8 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collision.h"
+#include "j1Window.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -349,3 +351,64 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	}
 	return true;
 }
+
+bool j1Map::LoadColliders(pugi::xml_node& node)
+{
+	bool ret = true;
+
+	pugi::xml_node object;
+	COLLIDER_TYPE collider_type;
+	p2SString type;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		type = object.attribute("type").as_string();
+		if (type == "floor")
+		{
+			collider_type = COLLIDER_FLOOR;
+		}
+
+		else if (type == "platform_floor")
+		{
+			collider_type = COLLIDER_PLATFORM;
+		}
+
+		else if (type == "Dead_Player")
+		{
+			collider_type = COLLIDER_DEAD;
+		}
+		else {
+			LOG("collider type undefined");
+			continue;
+		}
+
+		SDL_Rect shape;
+		shape.x = object.attribute("x").as_int();
+		shape.y = object.attribute("y").as_int();
+		shape.w = object.attribute("width").as_int();
+		shape.h = object.attribute("height").as_int();
+
+		App->collision->AddCollider(shape, collider_type);
+	}
+
+	return ret;
+}
+
+/*
+bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
+{
+	bool ret = true;
+
+	pugi::xml_node object;
+	p2SString name;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		name = object.attribute("name").as_string();
+
+		if (name == "Start_Point")
+		{
+			App->render
+		}
+	}
+}
+
+*/
