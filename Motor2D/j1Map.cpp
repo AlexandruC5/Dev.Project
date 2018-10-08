@@ -372,10 +372,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 			collider_type = COLLIDER_PLATFORM;
 		}
 
-		else if (type == "Dead_Player")
-		{
-			collider_type = COLLIDER_DEAD;
-		}
+		
 		else {
 			LOG("collider type undefined");
 			continue;

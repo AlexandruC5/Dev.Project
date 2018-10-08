@@ -11,22 +11,19 @@ j1Collision::j1Collision()
 		matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 		matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
 		matrix[COLLIDER_FLOOR][COLLIDER_PLATFORM] = false;
-		matrix[COLLIDER_FLOOR][COLLIDER_DEAD] = false;
+		
 
 		matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 		matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 		matrix[COLLIDER_PLAYER][COLLIDER_PLATFORM] = true;
-		matrix[COLLIDER_PLAYER][COLLIDER_DEAD] = true;
+		
 
 		matrix[COLLIDER_PLATFORM][COLLIDER_FLOOR] = false;
 		matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = false;
 		matrix[COLLIDER_PLATFORM][COLLIDER_PLATFORM] = false;
-		matrix[COLLIDER_PLATFORM][COLLIDER_DEAD] = false;
+		
 
-		matrix[COLLIDER_DEAD][COLLIDER_FLOOR] = false;
-		matrix[COLLIDER_DEAD][COLLIDER_PLAYER] = false;
-		matrix[COLLIDER_DEAD][COLLIDER_PLATFORM] = false;
-		matrix[COLLIDER_DEAD][COLLIDER_DEAD] = false;
+		
 	}
 	
 }

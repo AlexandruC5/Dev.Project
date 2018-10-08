@@ -43,7 +43,7 @@ void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
 				//ground sound FX
 			}
 			collidingfloor = C2;
-			
+
 		}
 
 		else if ((C2->rect.x + C2->rect.w) < (C1->rect.x + 5))
@@ -69,7 +69,7 @@ void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
 			if (v.y > 0)
 				v.y = 0;
 		}
-		
+
 	}
 	else if (C2->type == COLLIDER_PLATFORM)
 	{
@@ -95,12 +95,7 @@ void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
 				Colliding_Ground = true;
 				//FX colliding ground;
 			}
+			collidingfloor = C2;
 		}
-	}
-
-	else if (C2->type == COLLIDER_DEAD)
-	{
-		if (C1->SetPos);
-
 	}
 }
