@@ -100,6 +100,7 @@ void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
 
 	else if (C2->type == COLLIDER_DEAD)
 	{
-		if(C1->SetPos)
+		if (C1->SetPos);
+
 	}
 }
