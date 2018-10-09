@@ -26,7 +26,7 @@ public:
 	//bool Load(pugi::xml_node&);
 	//bool Save(pugi::xml_node&)const;
 	SDL_Rect character;
-	SDL_Texture * graphics;
+	SDL_Texture* graphics;
 
 	fPoint colliderMove;
 public:
