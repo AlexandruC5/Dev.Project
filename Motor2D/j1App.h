@@ -14,6 +14,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1Collision;
+class j1Logic;
 
 class j1Player;
 
@@ -87,6 +88,7 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 	j1Collision*		collision;
+	j1Logic*			logic;
 
 	j1Player*			player;
 private:

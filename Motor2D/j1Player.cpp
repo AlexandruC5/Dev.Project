@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1Map.h"
+#include "j1Logic.h"
 
 #include <stdio.h>
 j1Player::j1Player()

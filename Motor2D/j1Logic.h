@@ -38,6 +38,15 @@ public:
 	fPoint v;
 	iPoint position;
 
+	Animation idle_right;
+	Animation idle_left;
+	Animation right;
+	Animation left;
+	Animation jumping_left;
+	Animation jumping_right;
+	Animation falling_left;
+	Animation falling_right;
+
 	player_logic state;
 
 	bool Colliding_Ground;
