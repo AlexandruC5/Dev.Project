@@ -16,6 +16,7 @@
 j1Player::j1Player()
 {
 	name.create("player");
+	
 
 	character = { 36,8,25,47 };
 }
