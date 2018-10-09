@@ -3,7 +3,7 @@
 #include "j1Render.h"
 #include "j1Collision.h"
 #include "j1Input.h"
-
+#include "j1Audio.h"
 
 bool j1Logic::Logic_Update()
 {
@@ -16,6 +16,7 @@ bool j1Logic::Logic_Update()
 
 	if (CamPosition > 2 || v.y > 0)
 		virtualPosition.y += v.y;
+	return true;
 }
 
 

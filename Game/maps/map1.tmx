@@ -36,6 +36,78 @@
   <tile id="53" terrain="3,3,3,3"/>
   <tile id="54" terrain="3,3,3,3"/>
  </tileset>
+ <imagelayer name="background" offsetx="328" offsety="102.667">
+  <image source="layer_08_2048 x 1546.png" width="2048" height="1546"/>
+ </imagelayer>
+ <imagelayer name="background3" offsetx="4424" offsety="103.042">
+  <image source="layer_08_2048 x 1546.png" width="2048" height="1546"/>
+ </imagelayer>
+ <imagelayer name="background2" offsetx="2375.98" offsety="103">
+  <image source="layer_08_2048 x 1546.png" width="2048" height="1546"/>
+ </imagelayer>
+ <imagelayer name="buildings_1_far" offsetx="318" offsety="-112">
+  <image source="layer_05_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.2"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="buildings_2_far" offsetx="2359.36" offsety="-112.697">
+  <image source="layer_05_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.2"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="buildings_3_far" offsetx="4401.79" offsety="-109.667">
+  <image source="layer_05_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.2"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="buildings_1_mid" offsetx="326" offsety="-108">
+  <image source="layer_04_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.5"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="buildings_2_mid" offsetx="2373.98" offsety="-108.091">
+  <image source="layer_04_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.5"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="buildings_3_mid" offsetx="4421.47" offsety="-108.091">
+  <image source="layer_04_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.5"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="Copiar desde buildings_3_close" offsetx="335.985" offsety="674.818">
+  <image source="layer_06_2048 x 1546.png" width="2048" height="1546"/>
+ </imagelayer>
+ <imagelayer name="Copiar desde Copiar desde buildings_3_close" offsetx="2279.98" offsety="678.818">
+  <image source="layer_06_2048 x 1546.png" width="2048" height="1546"/>
+ </imagelayer>
+ <imagelayer name="Copiar desde Copiar desde Copiar desde buildings_3_close" offsetx="4311.98" offsety="674.818">
+  <image source="layer_06_2048 x 1546.png" width="2048" height="1546"/>
+ </imagelayer>
+ <imagelayer name="buildings_1_close" offsetx="326.909" offsety="181.091">
+  <image source="layer_06_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.7"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="buildings_2_close" offsetx="2375.98" offsety="129.818">
+  <image source="layer_06_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.7"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="buildings_3_close" offsetx="4423.98" offsety="78.8182">
+  <image source="layer_06_2048 x 1546.png" width="2048" height="1546"/>
+  <properties>
+   <property name="speed" type="float" value="0.7"/>
+  </properties>
+ </imagelayer>
  <objectgroup name="Logic" offsetx="339.313" offsety="184.813">
   <properties>
    <property name="map_length" type="int" value="4161"/>
@@ -6560,7 +6632,7 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="Collisions" offsetx="339.364" offsety="184.818">
+ <objectgroup name="Collisions" offsetx="343.364" offsety="180.818">
   <object id="32" name="floor" type="floor" x="-1.5" y="453" width="96" height="544"/>
   <object id="33" name="floor" type="floor" x="92.5" y="640.333" width="160" height="352"/>
   <object id="35" name="floor" type="floor" x="247.167" y="703" width="166.667" height="288.667"/>

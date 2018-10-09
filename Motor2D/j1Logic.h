@@ -47,6 +47,12 @@ public:
 
 	Collider* collider;
 	Collider* collidingfloor;
+
+	float speed;
+	float jump_intensity;
+
+	int camPositionX;
+	int camPositionY;
 };
 
 #endif

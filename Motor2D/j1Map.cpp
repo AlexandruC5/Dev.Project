@@ -352,6 +352,33 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return true;
 }
 
+
+bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* setlayer)
+{
+	bool ret = true;
+	setlayer->name = node.attribute("name").as_string();
+	setlayer->position.x = setlayer->offset_x = node.attribute("offsetx").as_int();
+	setlayer->position.y = setlayer->offset_y = node.attribute("offsety").as_int();
+
+	pugi::xml_node image = node.child("image");
+	setlayer->width = image.attribute("widht").as_int();
+	setlayer->height = image.attribute("height").as_int();
+	setlayer->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+
+	pugi::xml_node property;
+	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
+	{
+		p2SString name = property.attribute("name").as_string();
+		if (name == "speed")
+		{
+			setlayer->speed = property.attribute("value").as_float();
+		}
+	}
+	return ret;
+}
+
+
+
 bool j1Map::LoadColliders(pugi::xml_node& node)
 {
 	bool ret = true;
@@ -389,6 +416,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 
 	return ret;
 }
+
 
 /*
 bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)

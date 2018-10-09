@@ -2,8 +2,24 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
-
+#include "p2Point.h"
+#include "j1Logic.h"
 struct SDL_Texture;
+
+struct level
+{
+
+	p2SString map_path;
+	int lvl;
+	int length;
+	iPoint Start_Point;
+	iPoint End_Point;
+	level(int num, char* map_path)
+	{
+		this->map_path.create(map_path);
+		lvl = num;
+	}
+};
 
 class j1Scene : public j1Module
 {
@@ -32,7 +48,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+public:
+
+	p2List<level*> levels;
+	p2List_item<level*>* current_lvl;
+
+	//int max_camera_pos = 0;
 };
 
 #endif // __j1SCENE_H__

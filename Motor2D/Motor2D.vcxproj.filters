@@ -132,4 +132,7 @@
   <ItemGroup>
     <None Include="..\Game\maps\map1.tmx" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\config.xml" />
+  </ItemGroup>
 </Project>

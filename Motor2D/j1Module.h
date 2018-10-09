@@ -10,7 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
-
+class Collider;
 class j1Module
 {
 public:

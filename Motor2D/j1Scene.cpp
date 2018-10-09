@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Player.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -61,9 +62,28 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
 
+	uint win_width, win_height;
+	App->win->GetWindowSize(win_width, win_height);
 
+	//max_camera_pos = current_lvl->data->length + win_width;
+	//max_camera_pos *= -1;
 
-
+	if (App->player->camPositionX > (win_width / App->win->GetScale() / 2)) //Moving camera in X label
+	{
+		App->render->virtualCamPosX -= App->player->speed * 2;
+	}
+	else if (App->player->camPositionX < (win_width / App->win->GetScale() / 2))
+	{
+		App->render->virtualCamPosX += App->player->speed * 2;
+	}
+	if (App->player->camPositionY > (win_height / App->win->GetScale() / 2))
+	{
+		App->render->virtualCamPosY += App->player->speed * 2;
+	}
+	else if (App->render->virtualCamPosY < (win_height / App->win->GetScale() / 2))
+	{
+		App->render->virtualCamPosY -= App->player->speed * 2;
+	}
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 
