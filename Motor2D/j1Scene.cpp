@@ -68,22 +68,22 @@ bool j1Scene::Update(float dt)
 	//max_camera_pos = current_lvl->data->length + win_width;
 	//max_camera_pos *= -1;
 
-	if (App->player->camPositionX > (win_width / App->win->GetScale() / 2)) //Moving camera in X label
-	{
-		App->render->virtualCamPosX = App->player->speed * 2;
-	}
-	else if (App->player->camPositionX < (win_width / App->win->GetScale() / 2))
-	{
-		App->render->virtualCamPosX = App->player->speed * 2;
-	}
-	if (App->player->camPositionY > (win_height / App->win->GetScale() / 2))
-	{
-		App->render->virtualCamPosY = App->player->speed * 2;
-	}
-	else if (App->render->virtualCamPosY < (win_height / App->win->GetScale() / 2))
-	{
-		App->render->virtualCamPosY = App->player->speed * 2;
-	}
+	//if (App->player->camPositionX > (win_width / App->win->GetScale() / 2)) //Moving camera in X label
+	//{
+	//	App->render->virtualCamPosX += App->player->speed * 2;
+	//}
+	//else if (App->player->camPositionX < (win_width / App->win->GetScale() / 2))
+	//{
+	//	App->render->virtualCamPosX += App->player->speed * 2;
+	//}
+	//if (App->player->camPositionY > (win_height / App->win->GetScale() / 2))
+	//{
+	//	App->render->virtualCamPosY += App->player->speed * 2;
+	//}
+	//else if (App->render->virtualCamPosY < (win_height / App->win->GetScale() / 2))
+	//{
+	//	App->render->virtualCamPosY += App->player->speed * 2;
+	//}
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 

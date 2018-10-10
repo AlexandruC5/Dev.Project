@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include"p2Point.h"
 
-#define gravity 0.3
+#define gravity -0.3
 
 enum player_logic
 {
@@ -37,7 +37,7 @@ public:
 	fPoint virtualPosition;
 	fPoint v;
 	iPoint position;
-
+	Animation* animation = nullptr;
 	Animation idle_right;
 	Animation idle_left;
 	Animation right;
@@ -54,8 +54,8 @@ public:
 	bool Colliding_Right;
 	int CamPosition;
 
-	Collider* collider;
-	Collider* collidingfloor;
+	Collider* collider = nullptr;
+	Collider* collidingfloor = nullptr;
 
 	float speed;
 	float jump_intensity;

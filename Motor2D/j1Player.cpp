@@ -16,7 +16,99 @@
 j1Player::j1Player()
 {
 	name.create("player");
+
+
+
+	//RIGHT SIDE
+
+	//idle 
+	idle_right.PushBack({ 1,2,47,55 });
+	idle_right.PushBack({ 49,3,47,54 });
+	idle_right.PushBack({ 97,3,49,54 });
+	idle_right.PushBack({ 147,3,49,54 });
+	idle_right.PushBack({ 197,3,48,54 });
+	idle_right.PushBack({ 246,3,47,54 });
+	idle_right.PushBack({ 294,3,45,54 });
+	idle_right.PushBack({ 340,3,44,54 });
+	idle_right.PushBack({ 385,4,41,54 });
+	idle_right.PushBack({ 428,4,41,54 });
+	idle_right.PushBack({ 471,4,43,54 });
+
+	//right
+	right.PushBack({ 2,64,45,54 });
+	right.PushBack({ 48,64,48,54 });
+	right.PushBack({ 97,64,50,54 });
+	right.PushBack({ 149,64,50,54 });
+	right.PushBack({ 201,63,48,55 });
+	right.PushBack({ 251,63,47,55 });
+	right.PushBack({ 300,63,48,55 });
+	right.PushBack({ 350,64,48,54 });
+
+
+	//jumping
+	jumping_right.PushBack({ 5,176,47,50 });
+	jumping_right.PushBack({ 55,177,47,47 });
+	jumping_right.PushBack({ 105,171,42,57 });
+	jumping_right.PushBack({ 152,171,42,57 });
+	jumping_right.PushBack({ 198,177,47,51 });
+	jumping_right.PushBack({ 251,181,51,46 });
+	jumping_right.PushBack({ 306,180,51,47 });
+	jumping_right.PushBack({ 361,176,51,55 });
+	jumping_right.PushBack({ 415,169,47,62 });
+	jumping_right.PushBack({ 466,170,49,61 });
+	jumping_right.PushBack({ 517,177,47,50 });
+	jumping_right.PushBack({ 567,177,48,50 });
+
+	//falling
+	falling_right.PushBack({ 415,169,47,62 });
+	falling_right.PushBack({ 466,170,49,61 });
+
+
+
+	//LEFT SIDE
+
+	//idle 
+	idle_left.PushBack({ 10,242,43,54 });
+	idle_left.PushBack({ 55,242,41,54 });
+	idle_left.PushBack({ 98,242,41,54 });
+	idle_left.PushBack({ 140,241,44,54 });
+	idle_left.PushBack({ 185,241,45,54 });
+	idle_left.PushBack({ 231,241,47,54 });
+	idle_left.PushBack({ 279,241,48,54 });
+	idle_left.PushBack({ 320,241,49,54 });
+	idle_left.PushBack({ 378,241,49,54 });
+	idle_left.PushBack({ 428,241,47,54 });
+	idle_left.PushBack({ 476,240,47,55 });
+
+	//left
+	left.PushBack({ 15,303,48,54 });
+	left.PushBack({ 65,302,48,55 });
+	left.PushBack({ 115,302,47,55 });
+	left.PushBack({ 164,302,48,55 });
+	left.PushBack({ 214,303,50,54 });
+	left.PushBack({ 266,303,50,54 });
+	left.PushBack({ 317,303,48,54 });
+	left.PushBack({ 366,303,45,54 });
+
+
+	//jumping
+	jumping_left.PushBack({ 572,424,47,50 });
+	jumping_left.PushBack({ 522,425,47,47 });
+	jumping_left.PushBack({ 477,419,42,57 });
+	jumping_left.PushBack({ 430,419,42,57 });
+	jumping_left.PushBack({ 379,425,47,51 });
+	jumping_left.PushBack({ 322,429,51,46 });
+	jumping_left.PushBack({ 267,428,51,47 });
+	jumping_left.PushBack({ 212,424,51,55 });
+	jumping_left.PushBack({ 162,418,47,61 });
+	jumping_left.PushBack({ 109,418,49,61 });
+	jumping_left.PushBack({ 60,425,47,50 });
+	jumping_left.PushBack({ 9,425,48,50 });
 	
+	//falling
+	falling_left.PushBack({ 109,418,49,61 });
+	falling_left.PushBack({ 162,418,47,61 });
+
 
 	character = { 36,8,25,47 };
 }
