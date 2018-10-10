@@ -262,8 +262,8 @@ bool j1Player::PostUpdate()
 	position.y = virtualPosition.y;
 
 	int windows_scale = App->win->GetScale();
-	camPositionX = App->player->position.x + App->render->camera.x / windows_scale ;
-	camPositionY = App->player->position.y + App->render->camera.y / windows_scale ;
+	RelCamPositionX = App->player->position.x + App->render->camera.x / windows_scale ;
+	RelCamPositionY = App->player->position.y + App->render->camera.y / windows_scale ;
 
 	return true;
 }

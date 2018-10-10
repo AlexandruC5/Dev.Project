@@ -29,6 +29,8 @@ public:
 	SDL_Texture* graphics;
 
 	fPoint colliderMove;
+
+	
 public:
 };
 #endif // !1

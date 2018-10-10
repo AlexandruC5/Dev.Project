@@ -11,10 +11,16 @@ bool j1Logic::Logic_Update()
 
 	virtualPosition.y -= v.y;
 
-	if (CamPosition > 2 || v.x > 0)
+	if (RelCamPositionX > 2 || v.x > 0) {
 		virtualPosition.x += v.x;
-
-	if (CamPosition > 2 || v.y > 0)
+		CameraBack = false;
+	}
+	else if (v.x < 0)
+	{
+		virtualPosition.x += v.x;
+		CameraBack = true;
+	}
+	if (RelCamPositionY > 2 || v.y > 0)
 		virtualPosition.y += v.y;
 	Colliding_Left = false;
 	Colliding_Right = false;

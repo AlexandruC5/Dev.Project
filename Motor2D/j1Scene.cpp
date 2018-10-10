@@ -9,7 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
-
+#include "j1Collision.h"
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -78,11 +78,18 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win_width, win_height);
 
 
-	//max_camera_pos = current_lvl->data->length + win_width;
-	//max_camera_pos *= -1;
+	max_camera_pos = current_level->data->length - win_width;
+	max_camera_pos *= -1;
 
-	/**/
-//	App->render->camera.x = -App->player->position.x + (App->player->position.x +(App->win->GetWindowSize.window.w))
+	/**/ if(App->logic->CameraBack == false) 
+			App->render->camera.x  = -App->player->position.x  +10;
+	else if (App->player->RelCamPositionX > (win_width / App->win->GetScale()) && App->render->virtualCamPosX > max_camera_pos)
+	{
+		App->render->virtualCamPosX -= App->player->speed * 2;
+	}
+	App->render->camera.y = -App->player->position.y;
+
+
 	//if (App->player->camPositionX > (win_width / App->win->GetScale() / 2)) //Moving camera in X label
 	//{
 	//	App->render->virtualCamPosX = App->player->speed * 2;
