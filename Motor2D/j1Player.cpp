@@ -105,16 +105,16 @@ j1Player::j1Player()
 	jumping_left.PushBack({ 60,425,47,50 });
 	jumping_left.PushBack({ 9,425,48,50 });
 	
-<<<<<<< HEAD
+
 	
 	character = { 36,8,25,47 };
-=======
+
 	//falling
 	falling_left.PushBack({ 109,418,49,61 });
 	falling_left.PushBack({ 162,418,47,61 });
 
 
->>>>>>> 19c7d1269cf5f1f033dc2b5ab6043582c272dc22
+
 }
 
 j1Player::~j1Player()

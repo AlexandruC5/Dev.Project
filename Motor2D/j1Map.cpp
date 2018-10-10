@@ -170,7 +170,7 @@ bool j1Map::Load(const char* file_name, int& map_length)
 
 	pugi::xml_node object;
 	p2SString object_name;
-<<<<<<< HEAD
+
 	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup")) 
 	{
 		object_name = object.attribute("name").as_string();
@@ -182,7 +182,7 @@ bool j1Map::Load(const char* file_name, int& map_length)
 
 		
 	}
-=======
+
 	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
 	{
 		object_name = object.attribute("name").as_string();
@@ -196,7 +196,7 @@ bool j1Map::Load(const char* file_name, int& map_length)
 		}
 	}
 
->>>>>>> 19c7d1269cf5f1f033dc2b5ab6043582c272dc22
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);

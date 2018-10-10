@@ -77,7 +77,7 @@ bool j1Scene::Update(float dt)
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
 
-<<<<<<< HEAD
+
 	//max_camera_pos = current_lvl->data->length + win_width;
 	//max_camera_pos *= -1;
 
@@ -98,7 +98,7 @@ bool j1Scene::Update(float dt)
 	//else if (App->render->virtualCamPosY < (win_height / App->win->GetScale() / 2))
 	//{
 	//	App->render->virtualCamPosY = App->player->speed * 2;
-=======
+
 	/*max_camera_pos = current_lvl->data->length + win_width;
 	max_camera_pos *= -1;*/
 
@@ -117,7 +117,7 @@ bool j1Scene::Update(float dt)
 	//else if (App->render->virtualCamPosY < (win_height / App->win->GetScale() / 2))
 	//{
 	//	App->render->virtualCamPosY += App->player->speed * 2;
->>>>>>> 19c7d1269cf5f1f033dc2b5ab6043582c272dc22
+
 	//}
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();

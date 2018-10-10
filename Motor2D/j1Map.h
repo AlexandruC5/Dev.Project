@@ -151,7 +151,7 @@ private:
 	 bool LoadColliders(pugi::xml_node& node);
 	 bool LoadLogic(pugi::xml_node& node, int& map_length);
 	 bool LoadImageLayer(pugi::xml_node& node, ImageLayer* setLayer);
-	 bool LoadLogic(pugi::xml_node& node, int& map_length);
+
 
 
 public:
