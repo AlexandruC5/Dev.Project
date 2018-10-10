@@ -136,7 +136,7 @@ public:
 	bool CleanUp();
 
 	// Load new map
-	bool Load(const char* path);
+	bool Load(const char* path, int& map_length);
 
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
@@ -151,6 +151,8 @@ private:
 	 bool LoadColliders(pugi::xml_node& node);
 	// bool LoadLogic(pugi::xml_node& node, int& map_length);
 	 bool LoadImageLayer(pugi::xml_node& node, ImageLayer* setLayer);
+	 bool LoadLogic(pugi::xml_node& node, int& map_length);
+
 
 public:
 

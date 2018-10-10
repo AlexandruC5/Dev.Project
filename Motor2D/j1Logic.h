@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include"p2Point.h"
 
-#define gravity -0.3
+#define gravity 0.3
 
 enum player_logic
 {
@@ -31,7 +31,7 @@ public:
 	void Logic_OnCollision(Collider* C1, Collider* C2);
 
 private:
-	//void SetAnimation();
+	void SetAnimation();
 
 public:
 	fPoint virtualPosition;

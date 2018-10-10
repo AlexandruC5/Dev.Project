@@ -15,7 +15,6 @@ class j1Scene;
 class j1Map;
 class j1Collision;
 class j1Logic;
-
 class j1Player;
 
 class j1App

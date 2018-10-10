@@ -110,7 +110,6 @@ j1Player::j1Player()
 	falling_left.PushBack({ 162,418,47,61 });
 
 
-	character = { 36,8,25,47 };
 }
 
 j1Player::~j1Player()
@@ -132,7 +131,7 @@ bool j1Player::Start()
 		graphics = App->tex->Load("textures/PlayerSpriteSheet.png");
 
 	if (collider == nullptr)
-		collider = App->collision->AddCollider({ 0,0,25,47 }, COLLIDER_PLAYER, this);
+		collider = App->collision->AddCollider({ App->player->position.x ,App->player->position.y ,25,47 }, COLLIDER_PLAYER, this);
 	collidingfloor = nullptr;
 	Colliding_Ground = false;
 	Colliding_Left = false;
@@ -140,6 +139,7 @@ bool j1Player::Start()
 
 	v.x = 0;
 	v.y = 0;
+	animation = &idle_right;
 
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
@@ -250,6 +250,9 @@ bool j1Player::PostUpdate()
 			}
 		}
 	}
+
+	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
+
 	position.x = virtualPosition.x;
 	position.y = virtualPosition.y;
 

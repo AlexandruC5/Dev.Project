@@ -99,4 +99,67 @@ void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
 			collidingfloor = C2;
 		}
 	}
+
+
+	
+}
+
+void j1Logic::SetAnimation() 
+{
+	if (v.x > 0)
+	{
+		if (state == JUMP)
+		{
+			animation = &jumping_right;
+		}
+		else if (state == FALL) 
+		{
+			animation = &falling_right;
+		}
+		else
+		{
+			animation = &right;
+		}
+	}
+	else if(v.x<0)
+	{
+		if (state == JUMP)
+		{
+			animation = &jumping_left;
+		}
+		else if (state == FALL)
+		{
+			animation = &falling_left;
+		}
+		else
+		{
+			animation = &left;
+		}
+	}
+	else
+	{
+		if (state == IDLE)
+		{
+			if (animation == &left || animation == &jumping_left || animation == &falling_left)
+			{
+				animation = &idle_left;
+			}
+			else if (animation == &right || animation == &jumping_right || animation == &falling_right)
+			{
+				animation = &idle_right;
+			}
+		}
+		else if (state == JUMP)
+		{
+			if (animation == &idle_left)
+			{
+				animation = &jumping_left;
+			}
+			else if (animation == &idle_right)
+			{
+				animation = &jumping_right;
+			}
+		}
+	}
+
 }

@@ -13,6 +13,15 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+
+	level* level1 = new level(1, "map1.tmx");
+	level* level2 = new level(2, "map2.tmx");
+
+	levels.add(level1);
+	levels.add(level2);
+
+
+	current_level = levels.start;
 }
 
 // Destructor
@@ -31,7 +40,9 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("map1.tmx");
+	App->map->Load(levels.start->data->map_path.GetString(), current_level->data->length);
+	App->player->Start();
+	//App->player->position(0, 0);
 	return true;
 }
 
@@ -61,12 +72,13 @@ bool j1Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
-
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->map->Load("map2.tmx", current_level->data->length);
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
 
-	//max_camera_pos = current_lvl->data->length + win_width;
-	//max_camera_pos *= -1;
+	/*max_camera_pos = current_lvl->data->length + win_width;
+	max_camera_pos *= -1;*/
 
 	//if (App->player->camPositionX > (win_width / App->win->GetScale() / 2)) //Moving camera in X label
 	//{
@@ -115,4 +127,44 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+
+
+void j1Scene::LoadLevel(int num)
+{
+	if (num == 0)
+	{
+		current_level = current_level->next;
+		if (current_level == nullptr)
+		{
+			current_level = levels.start;
+		}
+	}
+	else
+	{
+		p2List_item<level*>* lvl = levels.start;
+		
+
+
+		for (int i = 1; i < num; ++i)
+		{
+			lvl = lvl->next;
+			if (lvl == nullptr)
+			{
+				LOG("Couldn't load level", num);
+
+				break;
+			}
+		}
+		current_level = lvl;
+	}
+
+	if (current_level != nullptr)
+	{
+		App->map->Load(current_level->data->map_path.GetString(), current_level->data->length);
+		App->player->collider = nullptr;
+		App->player->Start();
+
+	}
 }
