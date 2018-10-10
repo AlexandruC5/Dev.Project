@@ -48,10 +48,13 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//if num = 0 will search next level
+	void LoadLevel(int num = 0);
+
 public:
 
 	p2List<level*> levels;
-	p2List_item<level*>* current_lvl;
+	p2List_item<level*>* current_level;
 
 	//int max_camera_pos = 0;
 };

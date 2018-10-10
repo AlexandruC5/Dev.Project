@@ -114,7 +114,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name)
+bool j1Map::Load(const char* file_name, int& map_length)
 {
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
@@ -170,6 +170,7 @@ bool j1Map::Load(const char* file_name)
 
 	pugi::xml_node object;
 	p2SString object_name;
+<<<<<<< HEAD
 	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup")) 
 	{
 		object_name = object.attribute("name").as_string();
@@ -181,6 +182,21 @@ bool j1Map::Load(const char* file_name)
 
 		
 	}
+=======
+	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
+	{
+		object_name = object.attribute("name").as_string();
+		if (object_name == "Collision")
+		{
+			LoadColliders(object);
+		}
+		else if (object_name == "Logic")
+		{
+			LoadLogic(object, map_length);
+		}
+	}
+
+>>>>>>> 19c7d1269cf5f1f033dc2b5ab6043582c272dc22
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -388,6 +404,45 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* setlayer)
 			setlayer->speed = property.attribute("value").as_float();
 		}
 	}
+	return ret;
+}
+
+bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
+{
+	bool ret = true;
+
+	pugi::xml_node object;
+	p2SString name;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		name = object.attribute("name").as_string();
+		if (name == "player_start_pos")
+		{
+			App->player->position.x = object.attribute("x").as_int();
+			App->player->position.y = object.attribute("y").as_int();
+
+			App->render->virtualCamPosX = -(App->player->position.x * (int)App->win->GetScale() - 100);
+			if (App->render->virtualCamPosX > 0)
+			{
+				App->render->virtualCamPosX = 0;
+			}
+		}
+	}
+
+	pugi::xml_node property;
+	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
+	{
+		p2SString name = property.attribute("name").as_string();
+		if (name == "map_length")
+		{
+			map_length = property.attribute("value").as_int();
+			
+		}
+	}
+
+
+
+
 	return ret;
 }
 

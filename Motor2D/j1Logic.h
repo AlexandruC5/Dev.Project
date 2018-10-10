@@ -31,13 +31,13 @@ public:
 	void Logic_OnCollision(Collider* C1, Collider* C2);
 
 private:
-	//void SetAnimation();
+	void SetAnimation();
 
 public:
 	fPoint virtualPosition;
 	fPoint v;
 	iPoint position;
-
+	Animation* animation = nullptr;
 	Animation idle_right;
 	Animation idle_left;
 	Animation right;
@@ -54,8 +54,8 @@ public:
 	bool Colliding_Right;
 	int CamPosition;
 
-	Collider* collider;
-	Collider* collidingfloor;
+	Collider* collider = nullptr;
+	Collider* collidingfloor = nullptr;
 
 	float speed;
 	float jump_intensity;
