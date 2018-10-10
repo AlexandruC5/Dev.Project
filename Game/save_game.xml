@@ -1,9 +1,15 @@
 <!-- Save game for the game -->
 
 <game_state>
-
+  <input/>
+  <window/>
+  <textures/>
+  <audio/>
+  <map/>
+  <scene/>
+  <player position_x ="11" position_y ="342"/>
   <renderer>
-    <camera x="100" y="0"/>
+    <camera x="0" y="0"/>
   </renderer>
 
 </game_state>

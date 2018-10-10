@@ -5,6 +5,7 @@
 
 #include "j1Module.h"
 #include "SDL/include/SDL_rect.h"
+#include "j1Player.h"
 
 enum COLLIDER_TYPE 
 {
@@ -12,9 +13,9 @@ enum COLLIDER_TYPE
 	COLLIDER_FLOOR,
 	COLLIDER_PLAYER,
 	COLLIDER_PLATFORM, //staying under the platform jump through itself and stay above 
-	COLLIDER_DEAD,
 	MATRIX_COLLIDER
 };
+
 
 struct Collider
 {
@@ -22,7 +23,7 @@ struct Collider
 	bool to_delete = false;
 	COLLIDER_TYPE type;
 	j1Module* callback = nullptr;
-
+	bool enable;
 	Collider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr) :
 		rect(rect),
 		type(type),
@@ -33,7 +34,11 @@ struct Collider
 	{
 		rect.x = x;
 		rect.y = y;
+		
 	}
+
+	
+
 
 	bool CheckCollision(const SDL_Rect& r) const;
 

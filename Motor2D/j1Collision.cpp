@@ -8,6 +8,7 @@
 j1Collision::j1Collision()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i) {
+		colliders[i] == nullptr;
 		matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 		matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
 		matrix[COLLIDER_FLOOR][COLLIDER_PLATFORM] = false;
@@ -73,10 +74,11 @@ bool j1Collision::Update(float)
 				if (matrix[C2->type][C1->type] && C2->callback)
 					C2->callback->OnCollision(C2, C1);
 			}
-			//else if ((C1 == App->player->collidingfloor || C2 == App->player->collidingfloor) &&
-			//	((C1->type == COLLIDER_PLAYER && (C2->type == COLLIDER_FLOOR || C2->type == COLLIDER_PLATFORM) {
-			//else if() player.cpp
-		
+			else if ((C1 == App->player->collidingfloor || C2 == App->player->collidingfloor) &&
+				((C1->type == COLLIDER_PLAYER && (C2->type == COLLIDER_FLOOR || C2->type == COLLIDER_PLATFORM))
+					|| (C2->type == COLLIDER_PLAYER && (C1->type == COLLIDER_FLOOR || C1->type == COLLIDER_PLATFORM)))) {
+				App->player->Colliding_Ground = false;
+			}
 		}
 	}
 	DebugColliders();
@@ -113,9 +115,6 @@ void j1Collision::DebugColliders()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, opacity); //green
 			break;
 
-		case COLLIDER_DEAD:
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, opacity); //yellow
-			break;
 		}
 	}
 }

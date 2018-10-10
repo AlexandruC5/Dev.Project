@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1Collision.h"
 #include "j1Window.h"
+#include "j1Player.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -156,17 +157,30 @@ bool j1Map::Load(const char* file_name)
 	pugi::xml_node maplayer;
 	for (maplayer = map_file.child("map").child("layer"); maplayer && ret; maplayer = maplayer.next_sibling("layer"))
 	{
-		MapLayer* setiu = new MapLayer();
+		MapLayer* set = new MapLayer();
 
 		if (ret == true)
 		{
-			ret = LoadLayer(maplayer, setiu);
+			ret = LoadLayer(maplayer, set);
 		}
 
 
-		data.maplayers.add(setiu);
+		data.maplayers.add(set);
 	}
 
+	pugi::xml_node object;
+	p2SString object_name;
+	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup")) 
+	{
+		object_name = object.attribute("name").as_string();
+
+		if (object_name == "Collisions")
+		{
+			LoadColliders(object);
+		}
+
+		
+	}
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -387,7 +401,14 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 	COLLIDER_TYPE collider_type;
 	p2SString type;
 	for (object = node.child("object"); object; object = object.next_sibling("object"))
+
 	{
+
+		SDL_Rect shape;
+		shape.x = object.attribute("x").as_int();
+		shape.y = object.attribute("y").as_int();
+		shape.w = object.attribute("width").as_int();
+		shape.h = object.attribute("height").as_int();
 		type = object.attribute("type").as_string();
 		if (type == "floor")
 		{
@@ -405,21 +426,19 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 			continue;
 		}
 
-		SDL_Rect shape;
-		shape.x = object.attribute("x").as_int();
-		shape.y = object.attribute("y").as_int();
-		shape.w = object.attribute("width").as_int();
-		shape.h = object.attribute("height").as_int();
+		
 
-		App->collision->AddCollider(shape, collider_type);
+		App->collision->AddCollider(shape, COLLIDER_TYPE::COLLIDER_FLOOR);
+
+		
 	}
 
 	return ret;
 }
 
 
-/*
-bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
+
+/*bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 {
 	bool ret = true;
 
@@ -431,9 +450,17 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 
 		if (name == "Start_Point")
 		{
-			App->render
+			App->player->position.x = object.attribute("x").as_int();
+			App->player->position.y = object.attribute("y").as_int();
+
+			App->render->virtualCamPosX = -(App->player->position.x * (int)App->win->GetScale() - 100);
+			if (App->render->virtualCamPos > 0)
+			{
+				App->render->virtualCamPos = 0;
+			}
+		}
 		}
 	}
 }
-
 */
+

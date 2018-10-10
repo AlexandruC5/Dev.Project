@@ -9,13 +9,15 @@ bool j1Logic::Logic_Update()
 {
 	v.y += (gravity)*((Colliding_Ground)? 0:1);
 
-	//virtualPosition.y -= v.y;
+	virtualPosition.y -= v.y;
 
 	if (CamPosition > 2 || v.x > 0)
 		virtualPosition.x += v.x;
 
 	if (CamPosition > 2 || v.y > 0)
 		virtualPosition.y += v.y;
+	Colliding_Left = false;
+	Colliding_Right = false;
 	return true;
 }
 

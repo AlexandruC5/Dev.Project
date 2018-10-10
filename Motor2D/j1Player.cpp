@@ -17,7 +17,7 @@ j1Player::j1Player()
 {
 	name.create("player");
 	
-
+	
 	character = { 36,8,25,47 };
 }
 
@@ -35,7 +35,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start()
 {
 	LOG("Loading Player");
-
+	bool ret = true;
 	if (graphics == nullptr)
 		graphics = App->tex->Load("textures/PlayerSpriteSheet.png");
 
@@ -54,7 +54,7 @@ bool j1Player::Start()
 
 	//audio
 
-	return true;
+	return ret;
 
 }
 
@@ -122,7 +122,7 @@ bool j1Player::Update(float)
 	
 	}
 
-	collider->SetPos(virtualPosition.x + colliderMove.x, virtualPosition.y + colliderMove.y);
+	collider->SetPos(position.x + colliderMove.x, position.y + colliderMove.y);
 
 	App->player->Colliding_Left = false;
 	App->player->Colliding_Right = false;
@@ -162,8 +162,8 @@ bool j1Player::PostUpdate()
 	position.y = virtualPosition.y;
 
 	int windows_scale = App->win->GetScale();
-	camPositionX = App->player->position.x + App->render->camera.x / windows_scale;
-	camPositionY = App->player->position.y + App->render->camera.y / windows_scale;
+	camPositionX = App->player->position.x + App->render->camera.x / windows_scale ;
+	camPositionY = App->player->position.y + App->render->camera.y / windows_scale ;
 
 	return true;
 }
@@ -173,3 +173,21 @@ bool j1Player::PostUpdate()
 {
 
 }*/
+
+bool j1Player::Load(pugi::xml_node& data)
+{
+	virtualPosition.x = data.attribute("position_x").as_int();
+	virtualPosition.y = data.attribute("position_y").as_int();
+
+	return true;
+}
+
+bool j1Player::Save(pugi::xml_node& data) const
+{
+	data.append_attribute("position_x") = position.x;
+
+	data.append_attribute("position_y") = position.y - 5;
+
+	
+	return true;
+}
