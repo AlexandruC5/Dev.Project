@@ -422,6 +422,7 @@ bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
 		if (name == "map_length")
 		{
 			map_length = property.attribute("value").as_int();
+			
 		}
 	}
 
