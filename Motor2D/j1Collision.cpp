@@ -122,11 +122,12 @@ void j1Collision::DebugColliders()
 }
 
 bool j1Collision::CleanUp() {
-
+	
 	LOG("cleaning coliders");
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i) 
 	{
+		if (colliders[i] == nullptr) LOG("Colliders did not load");
 
 		if (colliders[i] != nullptr) 
 		{

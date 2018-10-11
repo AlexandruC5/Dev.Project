@@ -61,7 +61,7 @@ public:
 	bool Colliding_Right;
 	int RelCamPositionX;
 	int RelCamPositionY;
-	Collider* collider = nullptr;
+	Collider* collider ;
 	Collider* collidingfloor = nullptr;
 
 	float speed;

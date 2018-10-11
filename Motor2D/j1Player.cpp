@@ -136,7 +136,7 @@ bool j1Player::Start()
 		graphics = App->tex->Load("textures/PlayerSpriteSheet.png");
 
 	if (collider == nullptr)
-		collider = App->collision->AddCollider({ App->player->position.x ,App->player->position.y ,25,47 }, COLLIDER_PLAYER, this);
+	collider = App->collision->AddCollider(idle_right.GetCurrentFrame(), COLLIDER_PLAYER, this);
 	collidingfloor = nullptr;
 	Colliding_Ground = false;
 	Colliding_Left = false;
@@ -174,6 +174,7 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float)
 {
 	Logic_Update();
+	collider->SetPos(position.x, position.y);
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
 		v.x = +speed;
@@ -219,7 +220,7 @@ bool j1Player::Update(float)
 	
 	}
 
-	collider->SetPos(position.x + colliderMove.x, position.y + colliderMove.y);
+	
 
 	App->player->Colliding_Left = false;
 	App->player->Colliding_Right = false;
