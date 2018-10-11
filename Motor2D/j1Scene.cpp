@@ -101,7 +101,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x = -15;
 
 	}
-	else if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 1.8) && App->render->virtualCamPosX > max_camera_pos) {
+	if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 1.8) && App->render->virtualCamPosX > max_camera_pos) {
 		App->render->virtualCamPosX -= App->player->speed * 2; //to run at the same speed as the camera
 
 		

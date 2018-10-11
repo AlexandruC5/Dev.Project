@@ -33,7 +33,17 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-
+	p2List_item<ImageLayer*>* image = nullptr;
+	for (image = data.imagelayers.start; image; image = image->next)
+	{
+		SDL_Texture* texture = image->data->texture;
+		SDL_Rect section = { 0, 0, image->data->width, image->data->height };
+		if (image->data->position.x < -image->data->width)
+		{
+			image->data->position.x = image->data->width;
+		}
+		App->render->Blit(texture, image->data->position.x, image->data->position.y, &section);
+	}
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	
 	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
@@ -115,7 +125,14 @@ bool j1Map::CleanUp()
 	}
 	data.colliders.clear();
 
-
+	p2List_item<ImageLayer*>* image;
+	image = data.imagelayers.start;
+	while (image != NULL)
+	{
+		RELEASE(image->data);
+		image = image->next;
+	}
+	data.imagelayers.clear();
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -159,6 +176,20 @@ bool j1Map::Load(const char* file_name, int& map_length)
 		}
 
 		data.tilesets.add(set);
+	}
+	pugi::xml_node image_layer;
+	for (image_layer = map_file.child("map").child("imagelayer"); image_layer && ret; image_layer = image_layer.next_sibling("imagelayer"))
+	{
+		ImageLayer* set = new ImageLayer();
+
+		if (ret == true)
+		{
+			ret = LoadImageLayer(image_layer, set);
+		}
+		ImageLayer* set2 = new ImageLayer(set);
+		data.imagelayers.add(set);
+		set2->position.x += set2->width;
+		data.imagelayers.add(set2);
 	}
 
 	// TODO 4: Iterate all layers and load each of them
@@ -415,6 +446,7 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* setlayer)
 			setlayer->speed = property.attribute("value").as_float();
 		}
 	}
+	LOG("image loaded");
 	return ret;
 }
 
