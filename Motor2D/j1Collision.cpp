@@ -97,6 +97,8 @@ void j1Collision::DebugColliders()
 	Uint8 opacity = 80;
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i) {
+
+		if (colliders[i] == nullptr) continue;
 		switch (colliders[i]->type) {
 
 		case COLLIDER_NONE:	
@@ -132,6 +134,7 @@ bool j1Collision::CleanUp() {
 			colliders[i] = nullptr;
 		}
 	}
+	
 	return true;
 }
 
@@ -144,6 +147,7 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 		if (colliders[i] == nullptr)
 		{
 			ret = colliders[i] = new Collider( rect, type, callback);
+			break;
 		}
 	}
 	return ret;

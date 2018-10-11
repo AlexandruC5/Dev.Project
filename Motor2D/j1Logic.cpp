@@ -7,7 +7,7 @@
 
 bool j1Logic::Logic_Update()
 {
-	v.y += (gravity)*((Colliding_Ground)? 0:1);
+	v.y += (gravity)*((Colliding_Ground)? 0:2);
 
 	virtualPosition.y -= v.y;
 
@@ -37,7 +37,7 @@ void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
 	{
 		if ((C2->rect.y - v.y + 1) > (C1->rect.y + C1->rect.h)) //bottom collision
 		{
-			if (Colliding_Ground == false)
+			if (Colliding_Ground == true)
 			{
 				v.y = 0;
 				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
@@ -51,7 +51,7 @@ void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
 				else if (v.x > 0)
 					state = RIGHT;
 
-				Colliding_Ground = true;
+				Colliding_Ground = false;
 				//ground sound FX
 			}
 			collidingfloor = C2;

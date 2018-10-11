@@ -450,8 +450,7 @@ bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
 
 bool j1Map::LoadColliders(pugi::xml_node& node)
 {
-	bool ret = true;
-
+	
 	pugi::xml_node object;
 	COLLIDER_TYPE collider_type;
 	p2SString type;
@@ -465,30 +464,26 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		shape.w = object.attribute("width").as_int();
 		shape.h = object.attribute("height").as_int();
 		type = object.attribute("type").as_string();
-		if (type == "floor")
+		if (object.attribute("type").as_string() == "floor")
 		{
-			collider_type = COLLIDER_FLOOR;
+			data.colliders.add(App->collision->AddCollider(shape, COLLIDER_FLOOR));
+			
 		}
 
-		else if (type == "platform_floor")
+		else if (object.attribute("type").as_string() == "platform_floor")
 		{
-			collider_type = COLLIDER_PLATFORM;
+			data.colliders.add(App->collision->AddCollider(shape, COLLIDER_PLATFORM));
 		}
 
 		
 		else {
 			LOG("collider type undefined");
 			continue;
+
 		}
-
-		
-
-		App->collision->AddCollider(shape, COLLIDER_TYPE::COLLIDER_FLOOR);
-
-		
 	}
 
-	return ret;
+	return true;
 }
 
 

@@ -112,6 +112,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	maplayers;
+	p2List<Collider*>	colliders;
 	// TODO 2: Add a list/array of layers to the map!
 	p2List<ImageLayer*>	imagelayers;
 };
