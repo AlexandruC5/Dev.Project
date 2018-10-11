@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="50" tilewidth="32" tileheight="32" nextobjectid="84">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="50" tilewidth="32" tileheight="32" nextobjectid="85">
  <tileset firstgid="1" name="base" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="base.png" width="512" height="512"/>
   <terraintypes>
@@ -78,6 +78,50 @@
    <property name="speed" type="float" value="0.7"/>
   </properties>
  </imagelayer>
+ <objectgroup name="Collisions" offsetx="318.364" offsety="184.818">
+  <object id="32" name="floor" type="floor" x="-1.5" y="453" width="96" height="544"/>
+  <object id="33" name="floor" type="floor" x="92.5" y="640.333" width="160" height="352"/>
+  <object id="35" name="floor" type="floor" x="247.167" y="703" width="166.667" height="288.667"/>
+  <object id="37" name="plataform_floor" type="plataform_floor" x="417.167" y="608.333" width="94" height="31.3333"/>
+  <object id="39" name="plataform_floor" type="plataform_floor" x="608.5" y="575.667" width="95.3333" height="30.6667"/>
+  <object id="40" name="floor" type="floor" x="768.5" y="608.333" width="30.6667" height="382.667"/>
+  <object id="41" name="plataform_floor" type="plataform_floor" x="864.167" y="545" width="30.3333" height="31.6667"/>
+  <object id="42" name="plataform_floor" type="plataform_floor" x="991.5" y="545" width="32" height="30"/>
+  <object id="44" name="floor" type="floor" x="1247.5" y="704" width="64.3333" height="482"/>
+  <object id="45" name="plataform_floor" type="plataform_floor" x="1408.83" y="704.667" width="30.3333" height="31.6667"/>
+  <object id="47" name="plataform_floor" type="plataform_floor" x="1536.17" y="672.333" width="30.3333" height="31.6667"/>
+  <object id="48" name="plataform_floor" type="plataform_floor" x="1632.5" y="767.667" width="30.3333" height="31.6667"/>
+  <object id="49" name="plataform_floor" type="plataform_floor" x="1632.83" y="607.667" width="30.3333" height="31.6667"/>
+  <object id="50" name="plataform_floor" type="plataform_floor" x="1760.5" y="831.167" width="30.3333" height="31.6667"/>
+  <object id="51" name="platform_floor" type="platform_floor" x="1823.5" y="417.167" width="95.3333" height="30.6667"/>
+  <object id="52" name="platform_floor" type="platform_floor" x="1887" y="320.167" width="95.3333" height="30.6667"/>
+  <object id="54" name="platform_floor" type="platform_floor" x="1790.83" y="544.5" width="95.3333" height="30.6667"/>
+  <object id="55" name="plataform_floor" type="plataform_floor" x="1825.5" y="511.667" width="30.3333" height="31.6667"/>
+  <object id="57" name="plataform_floor" type="plataform_floor" x="2111.64" y="321.182" width="479.5" height="30"/>
+  <object id="61" name="plataform_floor" type="plataform_floor" x="2720.5" y="353.167" width="62.3333" height="30.6667"/>
+  <object id="63" name="floor" type="floor" x="2847.83" y="415.833" width="31" height="30.6667"/>
+  <object id="64" name="floor" type="floor" x="2943.83" y="351.833" width="31" height="30.6667"/>
+  <object id="65" name="floor" type="floor" x="3072.5" y="480.5" width="31" height="30.6667"/>
+  <object id="66" name="floor" type="floor" x="3840.67" y="288.5" width="31" height="30.6667"/>
+  <object id="67" name="floor" type="floor" x="3807.17" y="319.167" width="31" height="30.6667"/>
+  <object id="68" name="floor" type="floor" x="3871.67" y="256.5" width="31" height="30.6667"/>
+  <object id="69" name="floor" type="floor" x="3905.67" y="352.5" width="31" height="30.6667"/>
+  <object id="70" name="floor" type="floor" x="3936.17" y="544" width="31" height="30.6667"/>
+  <object id="71" name="floor" type="floor" x="3936.67" y="736.5" width="31" height="30.6667"/>
+  <object id="72" name="floor" type="floor" x="3840.17" y="800.5" width="31" height="30.6667"/>
+  <object id="73" name="floor" type="floor" x="3392.97" y="513.182" width="30" height="1082.67"/>
+  <object id="74" name="floor" type="floor" x="3488.97" y="448.848" width="30" height="1152"/>
+  <object id="75" name="floor" type="floor" x="2080.5" y="1056.17" width="30.3333" height="31.6667"/>
+  <object id="76" name="floor" type="floor" x="2145.5" y="1215.17" width="30.3333" height="31.6667"/>
+  <object id="77" name="floor" type="floor" x="3200.64" y="479.932" width="126.667" height="1118.92"/>
+  <object id="78" name="floor" type="floor" x="3169.8" y="800.432" width="30" height="798.667"/>
+  <object id="79" name="floor" type="floor" x="1855.22" y="899.182" width="95.1688" height="699.333"/>
+  <object id="80" name="floor" type="floor" x="3713.97" y="353.848" width="91.3333" height="1243.33"/>
+  <object id="81" name="floor" type="floor" x="3584.97" y="418.182" width="30" height="1190.67"/>
+  <object id="82" name="floor" type="floor" x="4031.33" y="639.833" width="31" height="30.6667"/>
+  <object id="83" name="floor" type="floor" x="3999.5" y="448" width="31" height="30.6667"/>
+  <object id="84" name="plataform_floor" type="plataform_floor" x="1057.64" y="544.682" width="29" height="31"/>
+ </objectgroup>
  <objectgroup name="Logic" offsetx="315.313" offsety="184.813">
   <properties>
    <property name="map_length" type="int" value="4161"/>
@@ -6602,48 +6646,4 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="Collisions" offsetx="309.364" offsety="179.818">
-  <object id="32" name="floor" type="floor" x="-1.5" y="453" width="96" height="544"/>
-  <object id="33" name="floor" type="floor" x="92.5" y="640.333" width="160" height="352"/>
-  <object id="35" name="floor" type="floor" x="247.167" y="703" width="166.667" height="288.667"/>
-  <object id="37" name="floor" type="floor" x="417.167" y="608.333" width="94" height="31.3333"/>
-  <object id="39" name="floor" type="floor" x="608.5" y="575.667" width="95.3333" height="30.6667"/>
-  <object id="40" name="floor" type="floor" x="768.5" y="608.333" width="30.6667" height="382.667"/>
-  <object id="41" name="floor" type="floor" x="864.167" y="545" width="30.3333" height="31.6667"/>
-  <object id="42" name="floor" type="floor" x="991.5" y="545" width="32" height="30"/>
-  <object id="43" name="floor" type="floor" x="1056.17" y="543.667" width="30.3333" height="31.6667" rotation="90"/>
-  <object id="44" name="floor" type="floor" x="1247.5" y="704" width="64.3333" height="482"/>
-  <object id="45" name="floor" type="floor" x="1408.83" y="704.667" width="30.3333" height="31.6667"/>
-  <object id="47" name="floor" type="floor" x="1536.17" y="672.333" width="30.3333" height="31.6667"/>
-  <object id="48" name="floor" type="floor" x="1632.5" y="767.667" width="30.3333" height="31.6667"/>
-  <object id="49" name="floor" type="floor" x="1632.83" y="607.667" width="30.3333" height="31.6667"/>
-  <object id="50" name="floor" type="floor" x="1760.5" y="831.167" width="30.3333" height="31.6667"/>
-  <object id="51" name="platform_floor" type="platform_floor" x="1823.5" y="417.167" width="95.3333" height="30.6667"/>
-  <object id="52" name="platform_floor" type="platform_floor" x="1887" y="320.167" width="95.3333" height="30.6667"/>
-  <object id="54" name="platform_floor" type="platform_floor" x="1790.83" y="544.5" width="95.3333" height="30.6667"/>
-  <object id="55" name="floor" type="floor" x="1825.5" y="511.667" width="30.3333" height="31.6667"/>
-  <object id="57" name="floor" type="floor" x="2111.64" y="321.182" width="479.5" height="30"/>
-  <object id="61" name="floor" type="floor" x="2720.5" y="353.167" width="62.3333" height="30.6667"/>
-  <object id="63" name="floor" type="floor" x="2847.83" y="415.833" width="31" height="30.6667"/>
-  <object id="64" name="floor" type="floor" x="2943.83" y="351.833" width="31" height="30.6667"/>
-  <object id="65" name="floor" type="floor" x="3072.5" y="480.5" width="31" height="30.6667"/>
-  <object id="66" name="floor" type="floor" x="3840.67" y="288.5" width="31" height="30.6667"/>
-  <object id="67" name="floor" type="floor" x="3807.17" y="319.167" width="31" height="30.6667"/>
-  <object id="68" name="floor" type="floor" x="3871.67" y="256.5" width="31" height="30.6667"/>
-  <object id="69" name="floor" type="floor" x="3905.67" y="352.5" width="31" height="30.6667"/>
-  <object id="70" name="floor" type="floor" x="3936.17" y="544" width="31" height="30.6667"/>
-  <object id="71" name="floor" type="floor" x="3936.67" y="736.5" width="31" height="30.6667"/>
-  <object id="72" name="floor" type="floor" x="3840.17" y="800.5" width="31" height="30.6667"/>
-  <object id="73" name="floor" type="floor" x="3392.97" y="513.182" width="30" height="1082.67"/>
-  <object id="74" name="floor" type="floor" x="3488.97" y="448.848" width="30" height="1152"/>
-  <object id="75" name="floor" type="floor" x="2080.5" y="1056.17" width="30.3333" height="31.6667"/>
-  <object id="76" name="floor" type="floor" x="2145.5" y="1215.17" width="30.3333" height="31.6667"/>
-  <object id="77" name="floor" type="floor" x="3200.64" y="479.932" width="126.667" height="1118.92"/>
-  <object id="78" name="floor" type="floor" x="3169.8" y="800.432" width="30" height="798.667"/>
-  <object id="79" name="floor" type="floor" x="1855.22" y="899.182" width="95.1688" height="699.333"/>
-  <object id="80" name="floor" type="floor" x="3713.97" y="353.848" width="91.3333" height="1243.33"/>
-  <object id="81" name="floor" type="floor" x="3584.97" y="418.182" width="30" height="1190.67"/>
-  <object id="82" name="floor" type="floor" x="4031.33" y="639.833" width="31" height="30.6667"/>
-  <object id="83" name="floor" type="floor" x="3999.5" y="448" width="31" height="30.6667"/>
- </objectgroup>
 </map>

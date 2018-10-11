@@ -35,6 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
+	AddModule(logic);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
@@ -42,7 +43,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(scene);
 	AddModule(collision);
-	AddModule(logic);
+	
 	
 	// render last to swap buffer
 	AddModule(render);

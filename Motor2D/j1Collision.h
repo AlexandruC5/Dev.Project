@@ -37,6 +37,17 @@ struct Collider
 		
 	}
 
+	void SetShape(int w, int h)
+	{
+		rect.w = w;
+		rect.h = h;
+	}
+
+	void SetType(COLLIDER_TYPE type)
+	{
+		this->type = type;
+	}
+
 	
 
 

@@ -106,6 +106,15 @@ bool j1Map::CleanUp()
 
 	data.maplayers.clear();
 
+	p2List_item<Collider*>* collider;
+	collider = data.colliders.start;
+	while (collider != NULL)
+	{
+		collider->data->to_delete = true;
+		collider = collider->next;
+	}
+	data.colliders.clear();
+
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -168,10 +177,12 @@ bool j1Map::Load(const char* file_name, int& map_length)
 		data.maplayers.add(set);
 	}
 
-	pugi::xml_node object;
-	p2SString object_name;
+	pugi::xml_node object = map_file.child("map").child("objectgroup");
+	//p2SString object_name;
+	ret = LoadColliders(object);
 
-	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup")) 
+
+	/*for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup")) 
 	{
 		object_name = object.attribute("name").as_string();
 
@@ -181,21 +192,21 @@ bool j1Map::Load(const char* file_name, int& map_length)
 		}
 
 		
-	}
+	}*/
 
-	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
+	/*for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
 	{
 		object_name = object.attribute("name").as_string();
 		if (object_name == "Collision")
 		{
-			LoadColliders(object);
+			ret=LoadColliders(object);
 		}
 		else if (object_name == "Logic")
 		{
-			LoadLogic(object, map_length);
+			ret=LoadLogic(object, map_length);
 		}
 	}
-
+*/
 
 	if(ret == true)
 	{
@@ -459,28 +470,31 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 	{
 
 		SDL_Rect shape;
-		shape.x = object.attribute("x").as_int();
-		shape.y = object.attribute("y").as_int();
-		shape.w = object.attribute("width").as_int();
-		shape.h = object.attribute("height").as_int();
+		shape.x = (int)object.attribute("x").as_float();
+		LOG("x:%i", shape.x);
+		shape.y = (int)object.attribute("y").as_float();
+		shape.w = (int)object.attribute("width").as_float();
+		shape.h = (int)object.attribute("height").as_float();
 		type = object.attribute("type").as_string();
-		if (object.attribute("type").as_string() == "floor")
+		LOG("string:%s", type.GetString());
+
+		if (type == "floor")
 		{
 			data.colliders.add(App->collision->AddCollider(shape, COLLIDER_FLOOR));
 			
 		}
 
-		else if (object.attribute("type").as_string() == "platform_floor")
+		else if (type == "platform_floor")
 		{
 			data.colliders.add(App->collision->AddCollider(shape, COLLIDER_PLATFORM));
 		}
 
 		
-		else {
+		/*else {
 			LOG("collider type undefined");
 			continue;
 
-		}
+		}*/
 	}
 
 	return true;
