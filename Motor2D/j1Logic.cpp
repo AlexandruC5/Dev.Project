@@ -14,11 +14,14 @@ bool j1Logic::Logic_Update()
 	if (RelCamPositionX > 2 || v.x > 0) {
 		virtualPosition.x += v.x;
 		CameraBack = false;
+		cam_logic = FORWARD;
 	}
+	
 	else if (v.x < 0)
 	{
 		virtualPosition.x += v.x;
 		CameraBack = true;
+		cam_logic = BACKWARD;
 	}
 	if (RelCamPositionY > 2 || v.y > 0)
 		virtualPosition.y += v.y;

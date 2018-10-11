@@ -17,6 +17,13 @@ enum player_logic
 	FALL
 };
 
+enum camera_logic
+{
+	START,
+	END,
+	FORWARD,
+	BACKWARD
+};
 class j1Logic : public j1Module
 {
 public:
@@ -64,6 +71,7 @@ public:
 	int camPositionY;
 
 	bool CameraBack;
+	camera_logic cam_logic;
 };
 
 #endif

@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 #include "j1Collision.h"
+#include "j1Logic.h"
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -80,16 +81,33 @@ bool j1Scene::Update(float dt)
 
 	max_camera_pos = current_level->data->length - win_width;
 	max_camera_pos *= -1;
+	
+	min_camera_pos = 0;
 
-	/**/ if(App->logic->CameraBack == false) 
-			App->render->camera.x  = -App->player->position.x  +10;
-	else if (App->player->RelCamPositionX > (win_width / App->win->GetScale()) && App->render->virtualCamPosX > max_camera_pos)
+	/* if(App->logic->CameraBack == false) 
+			App->render->camera.x  = -App->player->position.x  ;
+	 
+	else //if(App->logic->CameraBack == true)
 	{
-		App->render->virtualCamPosX -= App->player->speed * 2;
+		//App->render->virtualCamPosX -= App->player->speed * 2;
+		App->render->camera.x = +App->player->position.x;
 	}
 	App->render->camera.y = -App->player->position.y;
+	*/
+	
 
+	if (App->player->RelCamPositionX > (win_width / App->win->GetScale()/1.8 ) && App->render->virtualCamPosX > max_camera_pos) {
+		App->render->virtualCamPosX -= App->player->speed * 2; //to run at the same speed as the camera
+	}
 
+	else if(App->player->RelCamPositionX <(win_width * App->win->GetScale() / 10)  && App->render->virtualCamPosX < App->player->position.x-win_width/2)
+	{
+		App->render->virtualCamPosX += App->player->speed * 2;
+	}
+	else if (App->player->RelCamPositionX - App->player->position.x <= 0)
+	{
+		App->render->virtualCamPosX += 0;
+	}
 	//if (App->player->camPositionX > (win_width / App->win->GetScale() / 2)) //Moving camera in X label
 	//{
 	//	App->render->virtualCamPosX = App->player->speed * 2;

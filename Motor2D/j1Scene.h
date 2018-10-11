@@ -56,7 +56,9 @@ public:
 	p2List<level*> levels;
 	p2List_item<level*>* current_level;
 
-	int max_camera_pos = 0;
+	int max_camera_pos;;
+	int min_camera_pos;
+	camera_logic cameralogic;
 };
 
 #endif // __j1SCENE_H__
