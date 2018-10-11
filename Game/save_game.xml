@@ -7,9 +7,9 @@
   <audio/>
   <map/>
   <scene/>
-  <player position_x ="10" position_y ="10"/>
+  <player position_x ="100" position_y ="10"/>
   <renderer>
-    <camera x="0" y="0"/>
+    <camera x="-10" y="0"/>
   </renderer>
 
 </game_state>

@@ -96,18 +96,41 @@ bool j1Scene::Update(float dt)
 	*/
 	
 
-	if (App->player->RelCamPositionX > (win_width / App->win->GetScale()/1.8 ) && App->render->virtualCamPosX > max_camera_pos) {
+	if (App->player->position.x >= 0 && App->player->position.x < win_width * App->win->GetScale() / 10)
+	{
+		App->render->camera.x = -15;
+
+	}
+	else if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 1.8) && App->render->virtualCamPosX > max_camera_pos) {
 		App->render->virtualCamPosX -= App->player->speed * 2; //to run at the same speed as the camera
+
+		
 	}
 
-	else if(App->player->RelCamPositionX <(win_width * App->win->GetScale() / 10)  && App->render->virtualCamPosX < App->player->position.x-win_width/2)
+	else if (App->player->RelCamPositionX < (win_width * App->win->GetScale() / 10) && App->render->virtualCamPosX < App->player->position.x - win_width)
 	{
 		App->render->virtualCamPosX += App->player->speed * 2;
+		/*
+				if (App->player->position.x < win_width * App->win->GetScale() / 10)
+				{
+
+					App->render->virtualCamPosX = -App->player->position.x ;
+				}*/
+		
+		
 	}
+
+	 
+	
+
+	
+	/*if(App->player->position.x <= (0 ||)
 	else if (App->player->RelCamPositionX - App->player->position.x <= 0)
 	{
 		App->render->virtualCamPosX += 0;
-	}
+	}*/
+
+
 	//if (App->player->camPositionX > (win_width / App->win->GetScale() / 2)) //Moving camera in X label
 	//{
 	//	App->render->virtualCamPosX = App->player->speed * 2;
@@ -155,6 +178,9 @@ bool j1Scene::Update(float dt)
 					App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());
+
+	LOG("%i", App->render->camera.x);
+	LOG("%i", App->player->position.x);
 	return true;
 }
 

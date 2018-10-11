@@ -4,7 +4,8 @@
 #include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Audio.h"
-
+#include "j1Scene.h"
+#include "j1Window.h"
 bool j1Logic::Logic_Update()
 {
 	v.y += (gravity)*((Colliding_Ground)? 0:2);
@@ -19,9 +20,17 @@ bool j1Logic::Logic_Update()
 	
 	else if (v.x < 0)
 	{
+
 		virtualPosition.x += v.x;
 		CameraBack = true;
 		cam_logic = BACKWARD;
+
+		/*uint win_width, win_height;
+		App->win->GetWindowSize(win_width, win_height);*/
+		/*if (App->player->position.x <= (win_width * (App->win->GetScale() / 10 )-100))
+			App->render->camera.x = 0;
+
+		else virtualPosition.x += v.x;*/
 	}
 	if (RelCamPositionY > 2 || v.y > 0)
 		virtualPosition.y += v.y;

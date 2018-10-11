@@ -59,6 +59,8 @@ public:
 	int max_camera_pos;;
 	int min_camera_pos;
 	camera_logic cameralogic;
+
+	bool stop;
 };
 
 #endif // __j1SCENE_H__
