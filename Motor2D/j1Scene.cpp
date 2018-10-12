@@ -42,7 +42,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load(levels.start->data->map_path.GetString(), current_level->data->length);
-	//App->player->Start();
+	App->player->Start();
 	//App->player->position(0, 0);
 	return true;
 }
