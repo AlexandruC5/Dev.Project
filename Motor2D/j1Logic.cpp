@@ -8,7 +8,7 @@
 #include "j1Window.h"
 bool j1Logic::Logic_Update()
 {
-	v.y += (gravity)*((Colliding_Ground)? 0:2);
+	v.y = (gravity)*((Colliding_Ground)? 0:2);
 
 	virtualPosition.y -= v.y;
 
