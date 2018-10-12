@@ -136,7 +136,8 @@ bool j1Player::Start()
 		graphics = App->tex->Load("textures/PlayerSpriteSheet.png");
 
 	if (collider == nullptr)
-	collider = App->collision->AddCollider(idle_right.GetCurrentFrame(), COLLIDER_PLAYER, this);
+		collider = App->collision->AddCollider({0,0,43,54}, COLLIDER_PLAYER, this);
+
 	collidingfloor = nullptr;
 	Colliding_Ground = false;
 	Colliding_Left = false;
@@ -174,13 +175,15 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float)
 {
 	Logic_Update();
+
 	collider->SetPos(position.x, position.y);
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
-		v.x = +speed;
+		
 
 		if (state != JUMP && state != DEAD)
 		{
+			v.x = +speed;
 			state = RIGHT;
 		}
 	}
@@ -195,9 +198,10 @@ bool j1Player::Update(float)
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{
-		v.x = -speed;
+		
 		if (state != JUMP && state != DEAD)
 		{
+			v.x = -speed;
 			state = LEFT;
 		}
 	}
@@ -216,7 +220,7 @@ bool j1Player::Update(float)
 	{
 		
 		v.y = jump_intensity;
-		state = JUMP;
+		//state = JUMP;
 	
 	}
 
@@ -270,10 +274,18 @@ bool j1Player::PostUpdate()
 }
 
 
-/*void j1Player::OnCollision(Collider* C1, Collider* C2)   //t0 reset double jump
+void j1Player::OnCollision(Collider* C1, Collider* C2)   //t0 reset double jump
 {
+	if (C2->type == COLLIDER_FLOOR || C2->type == COLLIDER_PLATFORM)
+	{
+		if ((C2->rect.y - v.y + 1) > (C1->rect.y + (C1->rect.h)))
+		{
+			bool doublejump = false;
+		}
+	}
 
-}*/
+	Logic_OnCollision(C1, C2);
+}
 
 bool j1Player::Load(pugi::xml_node& data)
 {

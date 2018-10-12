@@ -146,6 +146,7 @@ bool j1Scene::Update(float dt)
 
 	LOG("%i", App->render->camera.x);
 	LOG("%i", App->player->position.x);
+	LOG("%f", App->render->virtualCamPosX);
 	return true;
 }
 

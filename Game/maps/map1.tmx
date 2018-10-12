@@ -6644,7 +6644,7 @@
   <properties>
    <property name="map_length" type="int" value="4161"/>
   </properties>
-  <object id="1" name="Start_Point" x="94.35" y="575.52" width="64" height="64"/>
+  <object id="1" name="Start_Point" x="96.85" y="587.52" width="31" height="32"/>
   <object id="4" name="End_Point" x="3840.02" y="768.521" width="30" height="30.6667">
    <properties>
     <property name="map_length" type="int" value="0"/>

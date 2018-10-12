@@ -21,7 +21,7 @@ public:
 	bool Update(float);
 	bool PostUpdate();
 	bool CleanUp();
-	//void OnCollision(Collider* C1, Collider* C2);
+	void OnCollision(Collider* C1, Collider* C2);
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&)const;
@@ -30,6 +30,7 @@ public:
 
 	fPoint colliderMove;
 
+	bool doublejump;
 	
 public:
 };

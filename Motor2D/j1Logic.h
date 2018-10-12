@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include"p2Point.h"
 
-#define gravity 0.3
+#define gravity -0.3
 
 enum player_logic
 {

@@ -47,14 +47,16 @@ void j1Map::Draw()
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	
 	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
+	MapLayer* layer = nullptr;
 	p2List_item<TileSet*>* item_tileset = data.tilesets.start;
 	while (item_layer != nullptr) {
 
 		for (uint i = 0; i < item_layer->data->width; i++)  {
 			for (uint j = 0; j < item_layer->data->height; j++) {
-				iPoint rect = MapToWorld(i, j);
+				SDL_Texture* texture = item_tileset->data->texture;
+				iPoint position = MapToWorld(i, j);
 				SDL_Rect tile = item_tileset->data->GetTileRect(item_layer->data->tiles[item_layer->data->Get(i, j)]);
-				App->render->Blit(item_tileset->data->texture, rect.x, rect.y, &tile);
+				App->render->Blit(texture, position.x, position.y, &tile);
 			}
 		}
 		item_layer = item_layer->next;
@@ -143,6 +145,7 @@ bool j1Map::CleanUp()
 bool j1Map::Load(const char* file_name, int& map_length)
 {
 	bool ret = true;
+	
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
@@ -208,36 +211,25 @@ bool j1Map::Load(const char* file_name, int& map_length)
 		data.maplayers.add(set);
 	}
 
-	pugi::xml_node object = map_file.child("map").child("objectgroup");
-	//p2SString object_name;
-	ret = LoadColliders(object);
-
-
-	/*for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup")) 
+	pugi::xml_node object;
+	p2SString object_name;
+	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
 	{
 		object_name = object.attribute("name").as_string();
-
-		if (object_name == "Collisions")
-		{
-			LoadColliders(object);
-		}
-
-		
-	}*/
-
-	/*for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
-	{
-		object_name = object.attribute("name").as_string();
-		if (object_name == "Collision")
-		{
-			ret=LoadColliders(object);
-		}
-		else if (object_name == "Logic")
-		{
-			ret=LoadLogic(object, map_length);
-		}
+			if (object_name == "Collisions")
+			{
+				LoadColliders(object);
+			}
+			else if (object_name == "Logic")
+			{
+				LoadLogic(object,map_length);
+			}
 	}
-*/
+	
+	
+
+
+	
 
 	if(ret == true)
 	{
@@ -459,16 +451,19 @@ bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
 	for (object = node.child("object"); object; object = object.next_sibling("object"))
 	{
 		name = object.attribute("name").as_string();
-		if (name == "player_start_pos")
+		if (name == "Start_Point")
 		{
 			App->player->position.x = object.attribute("x").as_int();
 			App->player->position.y = object.attribute("y").as_int();
 
-			App->render->virtualCamPosX = -(App->player->position.x * (int)App->win->GetScale() - 100);
-			if (App->render->virtualCamPosX > 0)
+			App->render->virtualCamPosX = -(App->player->position.x * (int)App->win->GetScale() -100 );
+			if (App->render->virtualCamPosX < 0)
 			{
 				App->render->virtualCamPosX = 0;
 			}
+
+			App->render->virtualCamPosY = -(App->player->position.y *(int)App->win->GetScale() - 100);
+			
 		}
 	}
 
@@ -522,11 +517,11 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		}
 
 		
-		/*else {
+		else {
 			LOG("collider type undefined");
 			continue;
 
-		}*/
+		}
 	}
 
 	return true;
@@ -534,29 +529,5 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 
 
 
-/*bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
-{
-	bool ret = true;
 
-	pugi::xml_node object;
-	p2SString name;
-	for (object = node.child("object"); object; object = object.next_sibling("object"))
-	{
-		name = object.attribute("name").as_string();
-
-		if (name == "Start_Point")
-		{
-			App->player->position.x = object.attribute("x").as_int();
-			App->player->position.y = object.attribute("y").as_int();
-
-			App->render->virtualCamPosX = -(App->player->position.x * (int)App->win->GetScale() - 100);
-			if (App->render->virtualCamPos > 0)
-			{
-				App->render->virtualCamPos = 0;
-			}
-		}
-		}
-	}
-}
-*/
 

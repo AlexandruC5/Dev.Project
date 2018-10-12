@@ -29,8 +29,8 @@ struct MapLayer
 			tiles = nullptr;
 		}
 	}
-	uint Get(int x, int y) const {
-		return x + (width*y);
+	inline uint Get(int x, int y) const { //inline changed
+		return x + (width*y); //this changed the draw type 
 	}
 };
 
