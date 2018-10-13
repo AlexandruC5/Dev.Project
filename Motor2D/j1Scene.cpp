@@ -76,6 +76,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
+		App->map->CleanUp();
 		CleanUp();
 		LoadLevel(1);
 	}
@@ -83,19 +84,27 @@ bool j1Scene::Update(float dt)
 	{
 		if (current_level->data->lvl == 2)
 		{
+			App->map->CleanUp();
 			CleanUp();
 			LoadLevel(2);
 		}
 
 		else {
 			App->map->CleanUp();
+			CleanUp();
 			LoadLevel(1);
 		}
 		
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
+	{
+		
+		App->map->CleanUp();
+		CleanUp();
 		LoadLevel(2);
+
+	}
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
 

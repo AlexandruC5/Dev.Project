@@ -33,7 +33,7 @@ j1Player::j1Player()
 	idle_right.PushBack({ 385,4,41,54 });
 	idle_right.PushBack({ 428,4,41,54 });
 	idle_right.PushBack({ 471,4,43,54 });
-
+	idle_right.speed = 0.1f;
 	//right
 	right.PushBack({ 2,64,45,54 });
 	right.PushBack({ 48,64,48,54 });
@@ -43,7 +43,7 @@ j1Player::j1Player()
 	right.PushBack({ 251,63,47,55 });
 	right.PushBack({ 300,63,48,55 });
 	right.PushBack({ 350,64,48,54 });
-
+	right.speed = 0.1f;
 
 	//jumping
 	jumping_right.PushBack({ 5,176,47,50 });
@@ -58,10 +58,12 @@ j1Player::j1Player()
 	jumping_right.PushBack({ 466,170,49,61 });
 	jumping_right.PushBack({ 517,177,47,50 });
 	jumping_right.PushBack({ 567,177,48,50 });
+	jumping_right.speed = 0.1f;
 
 	//falling
 	falling_right.PushBack({ 415,169,47,62 });
 	falling_right.PushBack({ 466,170,49,61 });
+	falling_right.speed = 0.1f;
 
 
 
@@ -79,6 +81,7 @@ j1Player::j1Player()
 	idle_left.PushBack({ 378,241,49,54 });
 	idle_left.PushBack({ 428,241,47,54 });
 	idle_left.PushBack({ 476,240,47,55 });
+	idle_left.speed = 0.1f;
 
 	//left
 	left.PushBack({ 15,303,48,54 });
@@ -89,6 +92,8 @@ j1Player::j1Player()
 	left.PushBack({ 266,303,50,54 });
 	left.PushBack({ 317,303,48,54 });
 	left.PushBack({ 366,303,45,54 });
+	left.speed = 0.1f;
+
 
 
 	//jumping
@@ -104,14 +109,13 @@ j1Player::j1Player()
 	jumping_left.PushBack({ 109,418,49,61 });
 	jumping_left.PushBack({ 60,425,47,50 });
 	jumping_left.PushBack({ 9,425,48,50 });
-	
+	jumping_left.speed = 0.1f;
 
-	
-	character = { 36,8,25,47 };
 
 	//falling
 	falling_left.PushBack({ 109,418,49,61 });
 	falling_left.PushBack({ 162,418,47,61 });
+	falling_left.speed = 0.1f;
 
 
 
@@ -124,6 +128,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 {
 	jump_intensity = config.attribute("jump_intensity").as_float();
 	speed = config.attribute("speed").as_float();
+	gravity = config.attribute("gravity").as_float();
+
 
 	return true;
 }
@@ -175,7 +181,8 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float)
 {
 	Logic_Update();
-
+	SetAnimation();
+	v.y = gravity;
 	collider->SetPos(position.x, position.y);
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
@@ -195,6 +202,7 @@ bool j1Player::Update(float)
 			state = IDLE;
 		}
 	}
+
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{
@@ -226,8 +234,6 @@ bool j1Player::Update(float)
 
 	
 
-	App->player->Colliding_Left = false;
-	App->player->Colliding_Right = false;
 	
 
 	return true;
@@ -284,7 +290,7 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   //t0 reset double jump
 		}
 	}
 
-	Logic_OnCollision(C1, C2);
+		Logic_OnCollision(C1, C2);
 }
 
 bool j1Player::Load(pugi::xml_node& data)
