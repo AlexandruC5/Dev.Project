@@ -62,7 +62,7 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	/*(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y -= 1;
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -72,9 +72,30 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 1;
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+		App->render->camera.x += 1;*/
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		CleanUp();
+		LoadLevel(1);
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->map->Load("map2.tmx", current_level->data->length);
+	{
+		if (current_level->data->lvl == 2)
+		{
+			CleanUp();
+			LoadLevel(2);
+		}
+
+		else {
+			App->map->CleanUp();
+			LoadLevel(1);
+		}
+		
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		LoadLevel(2);
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
 
@@ -84,17 +105,7 @@ bool j1Scene::Update(float dt)
 	
 	min_camera_pos = 0;
 
-	// if(App->logic->CameraBack == false) 
-	//		App->render->camera.x  = -App->player->position.x  ;
-	// 
-	//else //if(App->logic->CameraBack == true)
-	//{
-	//	//App->render->virtualCamPosX -= App->player->speed * 2;
-	//	App->render->camera.x = +App->player->position.x;
-	//}
-	//App->render->camera.y = -App->player->position.y;
-	
-	
+		
 
 	/*if (App->player->position.x >= 0 && App->player->position.x < win_width * App->win->GetScale() / 10)
 	{
@@ -124,11 +135,7 @@ bool j1Scene::Update(float dt)
 	
 
 	
-	/*if(App->player->position.x <= (0 ||)
-	else if (App->player->RelCamPositionX - App->player->position.x <= 0)
-	{
-		App->render->virtualCamPosX += 0;
-	}*/
+	
 
 
 	
@@ -165,7 +172,9 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
+	App->collision->CleanUp();
+	
+	
 	return true;
 }
 

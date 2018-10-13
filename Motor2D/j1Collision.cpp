@@ -89,7 +89,7 @@ bool j1Collision::Update(float)
 
 void j1Collision::DebugColliders()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false) return;
