@@ -10,7 +10,7 @@ j1Collision::j1Collision()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i) {
 		colliders[i] == nullptr;
 		matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
-		matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
+		matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
 		matrix[COLLIDER_FLOOR][COLLIDER_PLATFORM] = false;
 		
 
@@ -20,7 +20,7 @@ j1Collision::j1Collision()
 		
 
 		matrix[COLLIDER_PLATFORM][COLLIDER_FLOOR] = false;
-		matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = false;
+		matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = true;
 		matrix[COLLIDER_PLATFORM][COLLIDER_PLATFORM] = false;
 		
 

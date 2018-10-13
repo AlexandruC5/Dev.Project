@@ -12,7 +12,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Collision.h"
-#include"j1Logic.h"
+
 #include "j1Player.h"
 
 // Constructor
@@ -29,13 +29,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	map = new j1Map();
 	collision = new j1Collision();
-	logic = new j1Logic();
+	
 	
 	player = new j1Player();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
-	AddModule(logic);
+	
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);

@@ -5,7 +5,7 @@
 #include "j1Input.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
-#include "j1Window.h"
+
 bool j1Logic::Logic_Update()
 {
 	v.y -= (gravity*((Colliding_Ground)? 0:1));

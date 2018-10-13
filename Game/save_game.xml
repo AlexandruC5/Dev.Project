@@ -8,6 +8,7 @@
   <map/>
   <scene/>
   <player position_x ="100" position_y ="10"/>
+  
   <renderer>
     <camera x="-10" y="0"/>
   </renderer>

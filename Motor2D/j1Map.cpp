@@ -456,13 +456,13 @@ bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
 			App->player->position.x = object.attribute("x").as_int();
 			App->player->position.y = object.attribute("y").as_int();
 
-			App->render->virtualCamPosX = -(App->player->position.x * (int)App->win->GetScale() -100 );
+			App->render->virtualCamPosX = -(App->player->position.x * (int)App->win->GetScale()-100);
 			if (App->render->virtualCamPosX < 0)
 			{
 				App->render->virtualCamPosX = 0;
 			}
 
-			App->render->virtualCamPosY = -(App->player->position.y *(int)App->win->GetScale() - 100);
+			App->render->virtualCamPosY = -(App->player->position.y *(int)App->win->GetScale() -250 );
 			
 		}
 	}
