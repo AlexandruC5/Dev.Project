@@ -34,48 +34,33 @@
  </tileset>
  <tileset firstgid="257" name="parrallax" tilewidth="384" tileheight="216" tilecount="9" columns="0">
   <tile id="0">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/cloud_lonely.png"/>
+   <image width="384" height="216" source="cloud_lonely.png"/>
   </tile>
   <tile id="1">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/clouds_BG.png"/>
+   <image width="384" height="216" source="clouds_BG.png"/>
   </tile>
   <tile id="2">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/clouds_MG_1.png"/>
+   <image width="384" height="216" source="clouds_MG_1.png"/>
   </tile>
   <tile id="3">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/clouds_MG_2.png"/>
+   <image width="384" height="216" source="clouds_MG_2.png"/>
   </tile>
   <tile id="4">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/clouds_MG_3.png"/>
+   <image width="384" height="216" source="clouds_MG_3.png"/>
   </tile>
   <tile id="5">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/mountains.png"/>
+   <image width="384" height="216" source="mountains.png"/>
   </tile>
   <tile id="6">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/mountains_lightened.png"/>
+   <image width="384" height="216" source="mountains_lightened.png"/>
   </tile>
   <tile id="7">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/sky.png"/>
+   <image width="384" height="216" source="sky.png"/>
   </tile>
   <tile id="8">
-   <image source="E:/Downloads/Glacial-mountains-parallax-background_vnitti/Glacial-mountains-parallax-background_vnitti/layers/sky_lightened.png"/>
+   <image width="384" height="216" source="sky_lightened.png"/>
   </tile>
  </tileset>
- <imagelayer name="Sky">
-  <image source="../../../../../Desktop/sky.png" width="4224" height="4160"/>
- </imagelayer>
- <imagelayer name="Mountain" offsetx="52" offsety="984">
-  <image source="../../../../../Desktop/mountains.png" width="4224" height="216"/>
- </imagelayer>
- <imagelayer name="Clouds 1" offsetx="60" offsety="1098">
-  <image source="../../../../../Desktop/Clouds1.png" width="4224" height="216"/>
- </imagelayer>
- <imagelayer name="Clouds 2" offsetx="0" offsety="1100">
-  <image source="../../../../../Desktop/Clouds2.png" width="4224" height="216"/>
- </imagelayer>
- <imagelayer name="Clouds 3" offsetx="26" offsety="1298">
-  <image source="../../../../../Desktop/Clouds3.png" width="4224" height="380"/>
- </imagelayer>
  <layer name="Tile Layer 1" width="130" height="50" offsetx="0" offsety="2">
   <data encoding="csv">
 170,171,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -155,6 +140,9 @@
   <object id="25" name="plataform floor" type="plataform_floor" x="3008.5" y="1122" width="95.5" height="30.5"/>
   <object id="28" name="floor" type="floor" x="3137" y="1186" width="1023" height="97"/>
  </objectgroup>
+ <imagelayer name="background" offsetx="54.5455" offsety="678.788">
+  <image source="backgroundmap2.png" width="384" height="913"/>
+ </imagelayer>
  <objectgroup name="Logic">
   <object id="32" name="Start_Point" x="63" y="1280" width="129" height="162"/>
   <object id="33" name="End_Point" x="4128" y="1089" width="32" height="95"/>

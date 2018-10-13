@@ -33,6 +33,7 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
+	App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 0.5f);
 	p2List_item<ImageLayer*>* image = nullptr;
 	for (image = data.imagelayers.start; image; image = image->next)
 	{
@@ -44,7 +45,7 @@ void j1Map::Draw()
 		}
 		App->render->Blit(texture, image->data->position.x, image->data->position.y, &section);
 	}
-	// TODO 5: Prepare the loop to draw all tilesets + Blit
+	
 	
 	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
 	MapLayer* layer = nullptr;
@@ -180,22 +181,9 @@ bool j1Map::Load(const char* file_name, int& map_length)
 
 		data.tilesets.add(set);
 	}
-	pugi::xml_node image_layer;
-	for (image_layer = map_file.child("map").child("imagelayer"); image_layer && ret; image_layer = image_layer.next_sibling("imagelayer"))
-	{
-		ImageLayer* set = new ImageLayer();
 
-		if (ret == true)
-		{
-			ret = LoadImageLayer(image_layer, set);
-		}
-		ImageLayer* set2 = new ImageLayer(set);
-		data.imagelayers.add(set);
-		set2->position.x += set2->width;
-		data.imagelayers.add(set2);
-	}
 
-	// TODO 4: Iterate all layers and load each of them
+
 	// Load layer info ----------------------------------------------
 	pugi::xml_node maplayer;
 	for (maplayer = map_file.child("map").child("layer"); maplayer && ret; maplayer = maplayer.next_sibling("layer"))
@@ -210,6 +198,8 @@ bool j1Map::Load(const char* file_name, int& map_length)
 
 		data.maplayers.add(set);
 	}
+
+	//Load coliders and Logic
 
 	pugi::xml_node object;
 	p2SString object_name;
@@ -226,8 +216,11 @@ bool j1Map::Load(const char* file_name, int& map_length)
 			}
 	}
 	
-	
+	//Load image layer
 
+	pugi::xml_node backgroundimage = map_file.child("map").child("imagelayer");
+	data.backgroundimage = App->tex->Load(PATH(folder.GetString(), backgroundimage.child("image").attribute("source").as_string()));
+	data.backgroundrectangle = { 0,0,backgroundimage.child("image").attribute("width").as_int(), backgroundimage.child("image").attribute("height").as_int() };
 
 	
 
