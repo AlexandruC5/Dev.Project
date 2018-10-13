@@ -222,6 +222,7 @@ bool j1Map::Load(const char* file_name, int& map_length)
 	data.backgroundimage = App->tex->Load(PATH(folder.GetString(), backgroundimage.child("image").attribute("source").as_string()));
 	data.backgroundrectangle = { 0,0,backgroundimage.child("image").attribute("width").as_int(), backgroundimage.child("image").attribute("height").as_int() };
 
+
 	
 
 	if(ret == true)
