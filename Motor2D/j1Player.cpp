@@ -180,9 +180,19 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float)
 {
+	//Logic Module loaded
 	Logic_Update();
 	SetAnimation();
-	v.y = gravity;
+	//
+	
+	//Gravity
+	v.y += gravity;
+	position.y = v.y;
+	//
+
+
+
+
 	collider->SetPos(position.x, position.y);
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{

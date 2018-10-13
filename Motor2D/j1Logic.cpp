@@ -8,8 +8,7 @@
 
 bool j1Logic::Logic_Update()
 {
-	v.y -= (gravity*((Colliding_Ground)? 0:1));
-
+	
 	virtualPosition.y -= v.y;
 
 	if (RelCamPositionX > 2 || v.x > 0) {

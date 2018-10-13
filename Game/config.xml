@@ -11,14 +11,14 @@
   </renderer>
 
   <window>
-    <resolution width="1024" height="768" scale="2"/>
+    <resolution width="1024" height="768" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
 
-  <player speed ="5"  jump_intensity="6" gravity ="0.5"/>
+  <player speed ="5"  jump_intensity="6" gravity ="3.5"/>
   
   <file_system>
     <path>data.zip</path>

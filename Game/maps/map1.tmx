@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="50" tilewidth="32" tileheight="32" nextobjectid="99">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="50" tilewidth="32" tileheight="32" nextobjectid="105">
  <tileset firstgid="1" name="base" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="base.png" width="512" height="512"/>
   <terraintypes>
@@ -36,7 +36,7 @@
   <tile id="53" terrain="3,3,3,3"/>
   <tile id="54" terrain="3,3,3,3"/>
  </tileset>
- <layer name="Capa de Patrones 1" width="130" height="50" offsetx="148.697" offsety="166.666">
+ <layer name="Capa de Patrones 1" width="130" height="50">
   <data>
    <tile gid="33"/>
    <tile gid="34"/>
@@ -6540,8 +6540,8 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="Collisions" offsetx="318.364" offsety="184.818">
-  <object id="32" name="floor" type="floor" x="-1.5" y="453" width="96" height="544"/>
+ <objectgroup name="Collisions">
+  <object id="32" name="floor" type="floor" x="-3.5" y="443" width="96" height="544"/>
   <object id="33" name="floor" type="floor" x="92.5" y="640.333" width="160" height="352"/>
   <object id="35" name="floor" type="floor" x="247.167" y="703" width="166.667" height="288.667"/>
   <object id="37" name="platform_floor" type="platform_floor" x="417.167" y="608.333" width="94" height="31.3333"/>
@@ -6594,24 +6594,15 @@
  <imagelayer name="background" visible="0">
   <image source="backgroundmap1.png" width="5436" height="1200"/>
  </imagelayer>
- <objectgroup name="Logic" offsetx="315.313" offsety="184.813">
+ <objectgroup name="Logic">
   <properties>
    <property name="map_length" type="int" value="4161"/>
   </properties>
-  <object id="1" name="Start_Point" x="96.85" y="587.52" width="31" height="32"/>
   <object id="4" name="End_Point" x="3840.02" y="768.521" width="30" height="30.6667">
    <properties>
     <property name="map_length" type="int" value="0"/>
    </properties>
   </object>
-  <object id="6" name="Dead_Player" type="Dead_Player" x="415.233" y="736.4" width="357.576" height="254.545"/>
-  <object id="10" name="Dead_Player" type="Dead_Player" x="800" y="736" width="448" height="352"/>
-  <object id="13" name="Dead_Player" type="Dead_Player" x="1312.69" y="927.188" width="540" height="272"/>
-  <object id="14" name="Dead_Player" type="Dead_Player" x="1957.66" y="1284.88" width="1193.94" height="293.939"/>
-  <object id="18" name="Dead_Player" type="Dead_Player" x="2369.78" y="545.491" width="624.242" height="733.333"/>
-  <object id="23" name="Dead_Player" type="Dead_Player" x="2978.02" y="867.188" width="212" height="424"/>
-  <object id="25" name="Dead_Player" type="Dead_Player" x="3306.14" y="684.884" width="424.242" height="909.091"/>
-  <object id="27" name="Dead_Player" type="Dead_Player" x="3797.05" y="890.945" width="378.788" height="721.212"/>
-  <object id="30" name="Dead_Player" type="Dead_Player" x="1976.69" y="477.188" width="390" height="184"/>
+  <object id="104" name="Start_Point" x="288" y="636" width="82" height="69"/>
  </objectgroup>
 </map>
