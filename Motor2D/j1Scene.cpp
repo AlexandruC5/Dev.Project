@@ -108,11 +108,7 @@ bool j1Scene::Update(float dt)
 	max_camera_posY *= 1;
 		
 
-	/*if (App->player->position.x >= 0 && App->player->position.x < win_width * App->win->GetScale() / 10)
-	{
-		App->render->camera.x = -15;
 
-	}*/
 	if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 2) && (App->render->virtualCamPosX > max_camera_posX)) {
 		App->render->virtualCamPosX -= App->player->speed * 2; //to run at the same speed as the camera
 
@@ -122,20 +118,14 @@ bool j1Scene::Update(float dt)
 	else if (App->player->RelCamPositionX < (win_width * App->win->GetScale() / 10) && App->render->virtualCamPosX < App->player->position.x - win_width)
 	{
 		App->render->virtualCamPosX += App->player->speed * 2;
-		/*
-				if (App->player->position.x < win_width * App->win->GetScale() / 10)
-				{
-
-					App->render->virtualCamPosX = -App->player->position.x ;
-				}*/
-		
+	
 		
 	}
 
 	if (App->player->RelCamPositionY > (win_height / App->win->GetScale() / 2) && (App->render->virtualCamPosY < max_camera_posY)) { //camera goes down with de player
 		App->render->virtualCamPosY -= App->player->speed * 2;
 	}
-	if (App->player->RelCamPositionY < (win_height*App->win->GetScale() / 10) && (App->render->virtualCamPosY < App->player->position.y - win_height))
+	else if (App->player->RelCamPositionY < (win_height*App->win->GetScale() / 10) && (App->render->virtualCamPosY < App->player->position.y - win_height))
 	{
 		App->render->virtualCamPosY += App->player->speed * 2;
 	}

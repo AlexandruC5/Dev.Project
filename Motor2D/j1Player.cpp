@@ -81,7 +81,7 @@ j1Player::j1Player()
 	idle_left.PushBack({ 378,241,49,54 });
 	idle_left.PushBack({ 428,241,47,54 });
 	idle_left.PushBack({ 476,240,47,55 });
-	idle_left.speed = 0.2f;
+	idle_left.speed = 0.1f;
 
 	//left
 	left.PushBack({ 15,303,48,54 });
@@ -92,7 +92,7 @@ j1Player::j1Player()
 	left.PushBack({ 266,303,50,54 });
 	left.PushBack({ 317,303,48,54 });
 	left.PushBack({ 366,303,45,54 });
-	left.speed = 0.2f;
+	left.speed = 0.1f;
 
 
 
@@ -284,22 +284,30 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   {
 	case COLLIDER_FLOOR:
 		if (C1->rect.h < position.y + C2->rect.y)
 		{
-			position.y = C2->rect.y - C1->rect.h;
-			velocity.y = 0;
-			state = IDLE;
-			Colliding_Ground = true;
 			
+			
+			if (state != GOD) {
+				position.y = C2->rect.y - C1->rect.h;
+				velocity.y = 0;
+				state = IDLE;
+				Colliding_Ground = true;
+			}
+			else state = GOD;
 		}
 
 		break;
 	case COLLIDER_PLATFORM:
 		if (C1->rect.h < position.y + C2->rect.y)
 		{
-			position.y = C2->rect.y - C1->rect.h;
-			velocity.y = 0;
-			state = IDLE;
-			Colliding_Ground = true;
 
+			
+			if (state != GOD) {
+				position.y = C2->rect.y - C1->rect.h;
+				velocity.y = 0;
+				state = IDLE;
+				Colliding_Ground = true;
+			}
+			else state = GOD;
 		}
 		break;
 	}
@@ -315,7 +323,8 @@ bool j1Player::Load(pugi::xml_node& data)
 	App->scene->LoadLevel(data.attribute("level").as_int());
 	position.x = data.attribute("position_x").as_int();
 	position.y = data.attribute("position_y").as_int();
-
+	App->render->camera.x = data.attribute("x").as_int();
+	App->render->camera.x = data.attribute("y").as_int();
 	return true;
 }
 
@@ -326,7 +335,9 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("position_y") = position.y - 5;
 
 	data.append_attribute("level") = App->scene->current_level->data->lvl;
-	
+
+	data.append_attribute("x") = App->render->camera.x;
+	data.append_attribute("y") = App->render->camera.y;
 	return true;
 }
 
