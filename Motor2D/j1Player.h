@@ -25,6 +25,7 @@ public:
 	void OnCollision(Collider* C1, Collider* C2);
 	void SetActions();
 	void SetState();
+	void GodMode();
 	bool FALLING = false;
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&)const;
@@ -38,7 +39,7 @@ public:
 	fPoint colliderMove;
 
 	bool doublejump;
-
+	bool movingGodModeY;
 	uint win_fx;
 	uint jump_fx;
 	

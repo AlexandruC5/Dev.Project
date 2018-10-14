@@ -184,9 +184,26 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float)
 {
-	SetState();
 
 
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (state != GOD)
+		{
+			state = GOD;
+		}
+		else state = IDLE;
+	}
+
+	if (velocity.y < 6 && state != GOD)
+		velocity.y = 6;
+	else if (state == GOD)
+	{
+
+		if(movingGodModeY == false)
+		velocity.y = 0; //GOD gravity
+
+	}
 	if (position.x >= End_Position.x)
 	{
 		App->audio->PlayFx(win_fx, 0);
@@ -195,11 +212,7 @@ bool j1Player::Update(float)
 	position.x += velocity.x;
 	position.y += velocity.y;
 	
-	if (velocity.y < 6)
-		velocity.y = 6;
 	
-	//
-
 	//Player Colider
 	collider->SetPos(position.x, position.y);
 	//
@@ -220,11 +233,14 @@ bool j1Player::Update(float)
 
 bool j1Player::PostUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !Colliding_Right && velocity.x == 0)
+
+	
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !Colliding_Right && velocity.x == 0 && state != GOD) //god changed
 	{
 		velocity.x = speed;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !Colliding_Left && velocity.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !Colliding_Left && velocity.x == 0 && state != GOD)
 	{
 		velocity.x = -speed;
 	}
@@ -337,6 +353,11 @@ void j1Player::SetState()
 		}
 		
 		break;
+
+	case GOD:
+		
+		GodMode();
+		break;
 	}
 	
 
@@ -352,56 +373,147 @@ void j1Player::SetState()
 
 void j1Player::SetActions()
 {
+	if (state != GOD) {
 
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+		{
+
+
+			if (state != JUMP && state != DEAD)
+			{
+				velocity.x = +speed;
+				state = RIGHT;
+			}
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+		{
+			if (velocity.x > 0 && state != JUMP)
+			{
+				velocity.x = 0;
+				state = IDLE;
+			}
+		}
+
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+		{
+
+			if (state != JUMP && state != DEAD)
+			{
+				velocity.x = -speed;
+				state = LEFT;
+			}
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+		{
+			if (velocity.x < 0 && state != JUMP)
+			{
+				velocity.x = 0;
+				state = LEFT;
+			}
+
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+
+			velocity.y += jump_intensity;
+			velocity.x += jump_intensity;
+
+		}
+
+		//
+
+	}
+
+	else if (state == GOD)
+	{
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+		{
+
+
+			
+				velocity.x = +speed;
+				
+			
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+		{
+			if (velocity.x > 0 )
+			{
+				velocity.x = 0;
+				
+			}
+		}
+
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+		{
+				velocity.x = -speed;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+		{
+			if (velocity.x < 0)
+			{
+				velocity.x = 0;
+			}
+
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			velocity.y = -speed;
+
+			movingGodModeY = true;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+		{
+			if (velocity.y < 0)
+			{
+				velocity.y = 0;
+			}
+			movingGodModeY = false;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		{
+			velocity.y = speed;
+			movingGodModeY = true;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+		{
+			if (velocity.y > 0)
+			{
+				velocity.y = 0;
+			}
+
+			movingGodModeY = false;
+		}
+	}
+}
+
+void j1Player::GodMode() 
+{
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) 
+	{
+		velocity.y -= speed;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	{
+		position.y += speed;
+	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
-
-
-		if (state != JUMP && state != DEAD)
-		{
-			velocity.x = +speed;
-			state = RIGHT;
-		}
+		position.x += speed;
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-	{
-		if (velocity.x > 0 && state != JUMP)
-		{
-			velocity.x = 0;
-			state = IDLE;
-		}
+	if(App->input->GetKey(SDL_SCANCODE_A)== KEY_DOWN)
+	{ 
+		position.x -= speed;
 	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
-	{
-
-		if (state != JUMP && state != DEAD)
-		{
-			velocity.x = -speed;
-			state = LEFT;
-		}
-	}
-
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-	{
-		if (velocity.x < 0 && state != JUMP)
-		{
-			velocity.x = 0;
-			state = LEFT;
-		}
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-
-		velocity.y += jump_intensity;
-		velocity.x += jump_intensity;
-
-	}
-
-	//
-
-
 }

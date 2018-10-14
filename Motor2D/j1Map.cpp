@@ -133,7 +133,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name, int& map_length)
+bool j1Map::Load(const char* file_name, int& map_length, int& map_height)
 {
 	bool ret = true;
 	
@@ -202,7 +202,7 @@ bool j1Map::Load(const char* file_name, int& map_length)
 			}
 			else if (object_name == "Logic")
 			{
-				LoadLogic(object,map_length);
+				LoadLogic(object,map_length,map_height);
 			}
 	}
 	
@@ -403,7 +403,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 
 
-bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
+bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length, int&map_height)
 {
 	bool ret = true;
 
@@ -443,6 +443,11 @@ bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
 			map_length = property.attribute("value").as_int();
 			
 		}
+		if (name == "map_height")
+		{
+			map_height = property.attribute("value").as_int();
+		}
+
 	}
 
 

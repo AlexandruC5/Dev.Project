@@ -70,6 +70,7 @@ public:
 	bool DeleteCollider(Collider* collider);
 	void DebugColliders();
 
+	player_logic  state;
 private:
 	Collider* colliders[MAX_COLLIDERS];
 	bool matrix[MATRIX_COLLIDER][MATRIX_COLLIDER];

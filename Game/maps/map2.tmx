@@ -6565,6 +6565,10 @@
   <image source="backgroundmap2.png" width="4178" height="913"/>
  </imagelayer>
  <objectgroup name="Logic">
+   <properties>
+     <property name ="map_length" type="int" value="4160"></property>
+     <property name ="map_heigth" type =" int" value="1600"></property>
+   </properties>
   <object id="32" name="Start_Point" x="63" y="1280" width="129" height="162"/>
   <object id="33" name="End_Point" x="4128" y="1089" width="32" height="95"/>
  </objectgroup>
