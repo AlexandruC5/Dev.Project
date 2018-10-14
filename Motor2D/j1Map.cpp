@@ -137,6 +137,13 @@ bool j1Map::CleanUp()
 	}
 	data.imagelayers.clear();
 	// Clean up the pugui tree
+
+	
+	//Clean up background
+
+	App->tex->UnLoad(data.backgroundimage);
+	data.backgroundimage = nullptr;
+	 
 	map_file.reset();
 
 	return true;
