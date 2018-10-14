@@ -141,16 +141,16 @@ bool j1Player::Start()
 	if (graphics == nullptr)
 		graphics = App->tex->Load("textures/PlayerSpriteSheet.png");
 
-	if (collider == nullptr)
-		collider = App->collision->AddCollider({0,0,43,54}, COLLIDER_PLAYER, this);
+	if (collider == nullptr)collider = App->collision->AddCollider({0,0,43,54}, COLLIDER_PLAYER, this);
 
-	collidingfloor = nullptr;
 	Colliding_Ground = false;
 	Colliding_Left = false;
 	Colliding_Right = false;
+	collidingfloor = nullptr;
 
-	v.x = 0;
-	v.y = 0;
+	velocity.x = 0;
+	velocity.y = 0;
+
 	animation = &idle_right;
 
 	virtualPosition.x = position.x;
@@ -170,6 +170,7 @@ bool j1Player::CleanUp()
 	if (collider != nullptr)
 	{
 		collider->to_delete = true;
+
 		collider = nullptr;
 	}
 
@@ -177,108 +178,53 @@ bool j1Player::CleanUp()
 }
 
 
-
 bool j1Player::Update(float)
 {
+	SetState();
+
+	position.x += velocity.x;
+	position.y += velocity.y;
+	
+	if (velocity.y < 6)
+		velocity.y = 6;
+	
+	//
+
+	//Player Colider
+	collider->SetPos(position.x, position.y);
+	//
+
 	//Logic Module loaded
 	Logic_Update();
 	SetAnimation();
 	//
+
+	//Input
+	SetActions();
+	//
 	
 	
-
 	
-
-
-
-	collider->SetPos(position.x, position.y);
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
-	{
-		
-
-		if (state != JUMP && state != DEAD)
-		{
-			v.x = +speed;
-			state = RIGHT;
-		}
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-	{
-		if (v.x > 0 && state != JUMP)
-		{
-			v.x = 0;
-			state = IDLE;
-		}
-	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
-	{
-		
-		if (state != JUMP && state != DEAD)
-		{
-			v.x = -speed;
-			state = LEFT;
-		}
-	}
-
-	else if(App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-	{
-		if (v.x < 0 && state != JUMP)
-		{
-			v.x = 0;
-			state = LEFT;
-		}
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		
-		v.y += jump_intensity;
-		//state = JUMP;
-	
-	}
-
-	
-
-	
-
 	return true;
 }
 
 bool j1Player::PostUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !Colliding_Right && v.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !Colliding_Right && velocity.x == 0)
 	{
-		v.x = speed;
+		velocity.x = speed;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !Colliding_Left && v.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !Colliding_Left && velocity.x == 0)
 	{
-		v.x = -speed;
-	}
-
-	p2List_item<ImageLayer*>* image = nullptr; // PARALLAX
-	for (image = App->map->data.imagelayers.start; image; image = image->next)
-	{
-		if (image->data->speed > 0) 
-		{
-			if (v.x > 0)
-			{
-				image->data->position.x -= image->data->speed;
-			}
-
-			else if (v.x < 0)
-			{
-				image->data->position.x += image->data->speed;
-			}
-		}
+		velocity.x = -speed;
 	}
 
+	
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
-	position.x = virtualPosition.x;
-	position.y = virtualPosition.y;
+	
+
+	LOG("Speed on Y axis : %i", velocity.y);
 	
 	float windows_scale = App->win->GetScale();
 	RelCamPositionX = App->player->position.x + App->render->camera.x / windows_scale ;
@@ -288,69 +234,29 @@ bool j1Player::PostUpdate()
 }
 
 
-void j1Player::OnCollision(Collider* C1, Collider* C2)   //t0 reset double jump
-{
+void j1Player::OnCollision(Collider* C1, Collider* C2)   {
+	
+	SetState();
 
-	//Gravity
-	v.y += gravity;
-	position.y = v.y;
-	//
+	
 
-	if (C2->type == COLLIDER_FLOOR)
+	switch (C2->type) 
 	{
-		if ((C2->rect.y - v.y ) < (C1->rect.h)) //bottom collision
+	case COLLIDER_FLOOR:
+		if (C1->rect.h < position.y + C2->rect.y)
 		{
-			v.y = 0;
-
-		}
-
-		else if ((C2->rect.x + C2->rect.w) < (C1->rect.x ))
-		{
-			if (v.x < 0)
-			{
-				v.x = 0;
-			}
-		}
-
-		else if ((C2->rect.x) > C1->rect.w)
-		{
-			if (v.x > 0)
-			{
-				v.x = 0;
-			}
-			Colliding_Right = true;
-		}
-
-		else if ((C2->rect.y + C2->rect.h) < C1->rect.y) //colliding top
-		{
-			if (v.y > 0)
-				v.y = 0;
-		}
-
-	}
-	else if (C2->type == COLLIDER_PLATFORM)
-	{
-		if ((C2->rect.y - v.y ) > (C1->rect.y + C1->rect.h)) // collides when player is above the platform
-		{
-			
-				v.y = 0;
-
-				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
-				{
-					v.x = 0;
-					state = IDLE;
-				}
-				else if (v.x < 0)
-				{
-					state = LEFT;
-				}
-				else if (v.x > 0)
-				{
-					state = RIGHT;
-				}
+			position.y = C2->rect.y - C1->rect.h;
+			velocity.y = 0;
+			state = IDLE;
 			
 		}
+		break;
 	}
+	
+
+	
+	
+	
 }
 
 bool j1Player::Load(pugi::xml_node& data)
@@ -369,4 +275,118 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 	
 	return true;
+}
+
+
+
+void j1Player::SetState()
+{
+	
+	
+	
+	bool hold_right = App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT;
+	bool stophold_right = App->input->GetKey(SDL_SCANCODE_D) == KEY_UP;
+	bool hold_left = App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT;
+	bool stophold_left = App->input->GetKey(SDL_SCANCODE_A) == KEY_UP;
+	bool space = App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN;
+
+
+	switch (state)
+	{
+	case IDLE:
+		if (hold_right) 
+		{
+			state = RIGHT;
+		}
+		else if (hold_left)state = LEFT;
+		
+		if (space)state = JUMP;
+		
+		break;
+
+	case RIGHT:
+		if (stophold_right) state = IDLE;
+			break;
+
+	case LEFT:
+		if (stophold_left) state = IDLE;
+		break;
+
+	case FALL:
+		jumping_left.Reset();
+		jumping_right.Reset();
+		if (FALLING && space)
+		{
+			state = JUMP;
+			FALLING = false;
+		}
+		
+		break;
+	}
+	
+
+}
+
+
+
+
+
+
+
+
+
+void j1Player::SetActions()
+{
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	{
+
+
+		if (state != JUMP && state != DEAD)
+		{
+			velocity.x = +speed;
+			state = RIGHT;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+	{
+		if (velocity.x > 0 && state != JUMP)
+		{
+			velocity.x = 0;
+			state = IDLE;
+		}
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+	{
+
+		if (state != JUMP && state != DEAD)
+		{
+			velocity.x = -speed;
+			state = LEFT;
+		}
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+	{
+		if (velocity.x < 0 && state != JUMP)
+		{
+			velocity.x = 0;
+			state = LEFT;
+		}
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+
+		velocity.y += jump_intensity;
+		velocity.x += jump_intensity;
+
+	}
+
+	//
+
+
 }

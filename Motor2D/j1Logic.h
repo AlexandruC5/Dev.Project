@@ -29,8 +29,8 @@ class j1Logic : public j1Module
 public:
 	j1Logic()
 	{
-		v.x = 0;
-		v.y = 0;
+		velocity.x = 0;
+		velocity.y = 0;
 	}
 
 	bool Logic_Update();
@@ -44,8 +44,9 @@ private:
 
 public:
 	fPoint virtualPosition;
-	fPoint v;
+	fPoint velocity;
 	iPoint position;
+	iPoint End_Position;
 	Animation* animation = nullptr;
 	Animation idle_right;
 	Animation idle_left;
@@ -55,7 +56,7 @@ public:
 	Animation jumping_right;
 	Animation falling_left;
 	Animation falling_right;
-	iPoint End_Position;
+
 	player_logic state;
 
 	bool Colliding_Ground;
@@ -69,6 +70,7 @@ public:
 	float speed;
 	float jump_intensity;
 	float gravity;
+	iPoint maxVel = { 3,3 };
 
 	int camPositionX;
 	int camPositionY;
