@@ -31,7 +31,7 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node& config);
+	bool Awake();
 
 	// Called before the first frame
 	bool Start();
@@ -59,8 +59,6 @@ public:
 	int max_camera_pos;;
 	int min_camera_pos;
 	camera_logic cameralogic;
-
-	p2SString music_file = "";
 
 	bool stop;
 };

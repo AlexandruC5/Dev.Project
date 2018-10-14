@@ -30,10 +30,9 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake(pugi::xml_node& config)
+bool j1Scene::Awake()
 {
 	LOG("Loading Scene");
-
 	bool ret = true;
 
 	return ret;
@@ -45,7 +44,6 @@ bool j1Scene::Start()
 	App->map->Load(levels.start->data->map_path.GetString(), current_level->data->length);
 	App->player->Start();
 	//App->player->position(0, 0);
-	App->audio->PlayMusic("audio/music/backgroundmusic.ogg");
 	return true;
 }
 
@@ -66,10 +64,21 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
+	/*(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		App->render->camera.y -= 1;
 
+	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		App->render->camera.y += 1;
+
+	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		App->render->camera.x -= 1;
+
+	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		App->render->camera.x += 1;*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || (App->player->position.x >= App->player->End_Position.x && current_level->data->lvl ==2))
 	{
+		App->map->CleanUp();
 		CleanUp();
 		LoadLevel(1);
 	}
@@ -77,11 +86,13 @@ bool j1Scene::Update(float dt)
 	{
 		if (current_level->data->lvl == 2)
 		{
+			App->map->CleanUp();
 			CleanUp();
 			LoadLevel(2);
 		}
 
 		else {
+			App->map->CleanUp();
 			CleanUp();
 			LoadLevel(1);
 		}
@@ -91,6 +102,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || (App->player->position.x >= App->player->End_Position.x && current_level->data->lvl == 1))
 	{
 		
+		App->map->CleanUp();
 		CleanUp();
 		LoadLevel(2);
 
@@ -172,8 +184,7 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	App->collision->CleanUp();
-	App->map->CleanUp();
-
+	
 	
 	return true;
 }

@@ -157,10 +157,7 @@ bool j1Player::Start()
 	virtualPosition.y = position.y;
 
 	//audio
-	if (jump_fx == 0)
-		jump_fx = App->audio->LoadFx("audio/fx/jump.wav");
-	if (win_fx == 0)
-		win_fx = App->audio->LoadFx("audio/fx/win.wav");
+
 	return ret;
 
 }
@@ -255,27 +252,9 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   {
 		}
 		break;
 	}
-<<<<<<< HEAD
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		
-		v.y += jump_intensity;
-		//state = JUMP;
-		App->audio->PlayFx(jump_fx, 0);
-=======
->>>>>>> c19b2252fa99721c9f5f8c3586b991dd2b3a623d
 	
 
-<<<<<<< HEAD
-	if (position.x >= End_Position.x)
-	{
-		App->audio->PlayFx(win_fx, 0);
-	}
-
-=======
 	
->>>>>>> c19b2252fa99721c9f5f8c3586b991dd2b3a623d
 	
 	
 }
@@ -399,16 +378,8 @@ void j1Player::SetActions()
 
 	}
 
-<<<<<<< HEAD
-bool j1Player::Load(pugi::xml_node& data)
-{
-	App->scene->LoadLevel(data.attribute("level").as_int());
-	virtualPosition.x = data.attribute("position_x").as_int();
-	virtualPosition.y = data.attribute("position_y").as_int();
-=======
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
->>>>>>> c19b2252fa99721c9f5f8c3586b991dd2b3a623d
 
 		velocity.y += jump_intensity;
 		velocity.x += jump_intensity;
@@ -417,12 +388,5 @@ bool j1Player::Load(pugi::xml_node& data)
 
 	//
 
-<<<<<<< HEAD
-	data.append_attribute("position_y") = position.y ;
 
-	data.append_attribute("level") = App->scene->current_level->data->lvl;
-	return true;
-=======
-
->>>>>>> c19b2252fa99721c9f5f8c3586b991dd2b3a623d
 }
