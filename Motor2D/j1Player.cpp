@@ -33,7 +33,7 @@ j1Player::j1Player()
 	idle_right.PushBack({ 385,4,41,54 });
 	idle_right.PushBack({ 428,4,41,54 });
 	idle_right.PushBack({ 471,4,43,54 });
-	idle_right.speed = 0.1f;
+	idle_right.speed = 0.3f;
 	//right
 	right.PushBack({ 2,64,45,54 });
 	right.PushBack({ 48,64,48,54 });
@@ -43,7 +43,7 @@ j1Player::j1Player()
 	right.PushBack({ 251,63,47,55 });
 	right.PushBack({ 300,63,48,55 });
 	right.PushBack({ 350,64,48,54 });
-	right.speed = 0.1f;
+	right.speed = 0.3f;
 
 	//jumping
 	jumping_right.PushBack({ 5,176,47,50 });
@@ -58,12 +58,12 @@ j1Player::j1Player()
 	jumping_right.PushBack({ 466,170,49,61 });
 	jumping_right.PushBack({ 517,177,47,50 });
 	jumping_right.PushBack({ 567,177,48,50 });
-	jumping_right.speed = 0.1f;
+	jumping_right.speed = 0.3f;
 
 	//falling
 	falling_right.PushBack({ 415,169,47,62 });
 	falling_right.PushBack({ 466,170,49,61 });
-	falling_right.speed = 0.1f;
+	falling_right.speed = 0.3f;
 
 
 
@@ -81,7 +81,7 @@ j1Player::j1Player()
 	idle_left.PushBack({ 378,241,49,54 });
 	idle_left.PushBack({ 428,241,47,54 });
 	idle_left.PushBack({ 476,240,47,55 });
-	idle_left.speed = 0.1f;
+	idle_left.speed = 0.3f;
 
 	//left
 	left.PushBack({ 15,303,48,54 });
@@ -92,7 +92,7 @@ j1Player::j1Player()
 	left.PushBack({ 266,303,50,54 });
 	left.PushBack({ 317,303,48,54 });
 	left.PushBack({ 366,303,45,54 });
-	left.speed = 0.1f;
+	left.speed = 0.3f;
 
 
 
@@ -109,13 +109,13 @@ j1Player::j1Player()
 	jumping_left.PushBack({ 109,418,49,61 });
 	jumping_left.PushBack({ 60,425,47,50 });
 	jumping_left.PushBack({ 9,425,48,50 });
-	jumping_left.speed = 0.1f;
+	jumping_left.speed = 0.3f;
 
 
 	//falling
 	falling_left.PushBack({ 109,418,49,61 });
 	falling_left.PushBack({ 162,418,47,61 });
-	falling_left.speed = 0.1f;
+	falling_left.speed = 0.3f;
 
 
 
@@ -161,6 +161,8 @@ bool j1Player::Start()
 		jump_fx = App->audio->LoadFx("audio/fx/jump.wav");
 	if (win_fx == 0)
 		win_fx = App->audio->LoadFx("audio/fx/win.wav");
+	if (death_fx == 0)
+		death_fx = App->audio->LoadFx("audio/fx/die.wav");
 	return ret;
 
 }
@@ -192,6 +194,8 @@ bool j1Player::Update(float)
 	SetActions();
 	//
 
+	
+
 	//WinFx
 	if (position.x >= End_Position.x)
 	{
@@ -211,7 +215,7 @@ bool j1Player::Update(float)
 	//gravity
 	if (state != JUMP) 
 	{
-		if (velocity.y < 3 && state !=GOD)
+		if (velocity.y < 6 && state !=GOD)
 			velocity.y = gravity;
 		else if(state == GOD)
 		{
@@ -237,10 +241,16 @@ bool j1Player::Update(float)
 
 	//Logic Module loaded
 	Logic_Update();
+	//Animation update
 	SetAnimation();
 	
 
-
+	//Death
+	if (position.y > DeathMargin) 
+	{
+		App->audio->PlayFx(death_fx, 0);
+		App->scene->LoadLevel(App->scene->current_level->data->lvl);
+	}
 	
 	
 	
@@ -284,30 +294,22 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   {
 	case COLLIDER_FLOOR:
 		if (C1->rect.h < position.y + C2->rect.y)
 		{
+			position.y = C2->rect.y - C1->rect.h;
+			velocity.y = 0;
+			state = IDLE;
+			Colliding_Ground = true;
 			
-			
-			if (state != GOD) {
-				position.y = C2->rect.y - C1->rect.h;
-				velocity.y = 0;
-				state = IDLE;
-				Colliding_Ground = true;
-			}
-			else state = GOD;
 		}
 
 		break;
 	case COLLIDER_PLATFORM:
 		if (C1->rect.h < position.y + C2->rect.y)
 		{
+			position.y = C2->rect.y - C1->rect.h;
+			velocity.y = 0;
+			state = IDLE;
+			Colliding_Ground = true;
 
-			
-			if (state != GOD) {
-				position.y = C2->rect.y - C1->rect.h;
-				velocity.y = 0;
-				state = IDLE;
-				Colliding_Ground = true;
-			}
-			else state = GOD;
 		}
 		break;
 	}
@@ -323,8 +325,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	App->scene->LoadLevel(data.attribute("level").as_int());
 	position.x = data.attribute("position_x").as_int();
 	position.y = data.attribute("position_y").as_int();
-	App->render->camera.x = data.attribute("x").as_int();
-	App->render->camera.x = data.attribute("y").as_int();
+
 	return true;
 }
 
@@ -335,9 +336,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("position_y") = position.y - 5;
 
 	data.append_attribute("level") = App->scene->current_level->data->lvl;
-
-	data.append_attribute("x") = App->render->camera.x;
-	data.append_attribute("y") = App->render->camera.y;
+	
 	return true;
 }
 
@@ -398,8 +397,7 @@ void j1Player::SetState()
 	case JUMP:
 		if (jumping_right.Finished()) 
 		{
-			if(Colliding_Ground)jumping_right.Reset();
-
+			jumping_right.Reset();
 			state = IDLE;
 			velocity.x = 0;
 		}
@@ -410,6 +408,8 @@ void j1Player::SetState()
 			velocity.x = 0;
 		}
 		break;
+	
+
 	
 
 	}
@@ -475,10 +475,10 @@ void j1Player::SetActions()
 		{
 			state = JUMP;
 
-			if (velocity.y < gravity)velocity.y -= 1;
+			if (velocity.y < gravity)velocity.y -= 3;
 			if (velocity.y > gravity)
 			{
-				velocity.y += 2;
+				velocity.y += 6;
 				FALLING = true;
 			}
 

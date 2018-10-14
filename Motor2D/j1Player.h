@@ -20,7 +20,7 @@ public:
 	bool Start();
 	bool Update(float);
 	bool PostUpdate();
-	
+	int DeathMargin = 1400;
 	bool CleanUp();
 	void OnCollision(Collider* C1, Collider* C2);
 	void SetActions();
@@ -41,6 +41,7 @@ public:
 	bool movingGodModeY;
 	uint win_fx;
 	uint jump_fx;
+	uint death_fx;
 	
 public:
 };

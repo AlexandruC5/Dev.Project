@@ -33,7 +33,7 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-	App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 0.5f);
+	App->render->Blit(data.backgroundimage, 0,100, &data.backgroundrectangle, 0.5f);
 	
 	
 	
