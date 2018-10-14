@@ -275,6 +275,17 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   {
 			Colliding_Ground = true;
 			
 		}
+
+		break;
+	case COLLIDER_PLATFORM:
+		if (C1->rect.h < position.y + C2->rect.y)
+		{
+			position.y = C2->rect.y - C1->rect.h;
+			velocity.y = 0;
+			state = IDLE;
+			Colliding_Ground = true;
+
+		}
 		break;
 	}
 	
@@ -361,12 +372,13 @@ void j1Player::SetState()
 		{
 			jumping_right.Reset();
 			state = IDLE;
-
+			velocity.x = 0;
 		}
 		if (jumping_left.Finished()) 
 		{
 			jumping_left.Reset();
 			state = IDLE;
+			velocity.x = 0;
 		}
 		break;
 	
@@ -395,7 +407,7 @@ void j1Player::SetActions()
 
 		if (state != JUMP && state != DEAD)
 		{
-			//velocity.x = speed;
+			velocity.x = speed;
 			state = RIGHT;
 		}
 	}
@@ -404,7 +416,7 @@ void j1Player::SetActions()
 	{
 		if (velocity.x > 0 && state != JUMP)
 		{
-			//velocity.x = 0;
+			velocity.x = 0;
 			state = IDLE;
 		}
 	}
