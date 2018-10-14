@@ -20,13 +20,20 @@ public:
 	bool Start();
 	bool Update(float);
 	bool PostUpdate();
+	
 	bool CleanUp();
 	void OnCollision(Collider* C1, Collider* C2);
-
+	void SetActions();
+	void SetState();
+	bool FALLING = false;
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&)const;
 	SDL_Rect character;
 	SDL_Texture* graphics;
+
+
+
+	fPoint acceleration;
 
 	fPoint colliderMove;
 

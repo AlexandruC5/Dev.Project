@@ -9,26 +9,26 @@
 bool j1Logic::Logic_Update()
 {
 	
-	virtualPosition.y -= v.y;
+	
 
-	if (RelCamPositionX > 2 || v.x > 0) {
-		virtualPosition.x += v.x;
+	if (RelCamPositionX > 2 || velocity.x > 0) {
+		virtualPosition.x += velocity.x;
 		
 	}
 	
-	else if (v.x < 0 || RelCamPositionX < 2)
+	else if (velocity.x < 0 || RelCamPositionX < 2)
 	{
 
-		virtualPosition.x += v.x;
+		virtualPosition.x += velocity.x;
 		
 			
 	}
-	if (RelCamPositionY > 2 || v.y > 0)
-		virtualPosition.y += v.y;
+	if (RelCamPositionY > 2 || velocity.y > 0)
+		virtualPosition.y += velocity.y;
 
-	else if (RelCamPositionY < 2 || v.y < 0)
+	else if (RelCamPositionY < 2 || velocity.y < 0)
 	{
-		virtualPosition.y -= v.y;
+		virtualPosition.y -= velocity.y;
 	}
 
 	Colliding_Left = false;
@@ -39,83 +39,83 @@ bool j1Logic::Logic_Update()
 
 void j1Logic::OnCollision(Collider* C1, Collider* C2)
 {
-	if (C2->type == COLLIDER_FLOOR)
-	{
-		if ((C2->rect.y - v.y ) > (C1->rect.y + C1->rect.h)) //bottom collision
-		{
-			if (Colliding_Ground == true)
-			{
-				v.y = 0;
-				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
-				{
-					v.x = 0;
-					state = IDLE;
-				}
-				else if (v.x < 0)
-					state = LEFT;
+	//if (C2->type == COLLIDER_FLOOR)
+	//{
+	//	if ((C2->rect.y - v.y ) > (C1->rect.y + C1->rect.h)) //bottom collision
+	//	{
+	//		if (Colliding_Ground == true)
+	//		{
+	//			v.y = 0;
+	//			if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
+	//			{
+	//				v.x = 0;
+	//				state = IDLE;
+	//			}
+	//			else if (v.x < 0)
+	//				state = LEFT;
 
-				else if (v.x > 0)
-					state = RIGHT;
+	//			else if (v.x > 0)
+	//				state = RIGHT;
 
-				Colliding_Ground = false;
-				//ground sound FX
-			}
-			collidingfloor = C2;
+	//			Colliding_Ground = false;
+	//			//ground sound FX
+	//		}
+	//		collidingfloor = C2;
 
-		}
+	//	}
 
-		else if ((C2->rect.x + C2->rect.w) < (C1->rect.x + 5))
-		{
-			if (v.x < 0)
-			{
-				v.x = 0;
-			}
-			Colliding_Left = true;
-		}
+	//	else if ((C2->rect.x + C2->rect.w) < (C1->rect.x + 5))
+	//	{
+	//		if (v.x < 0)
+	//		{
+	//			v.x = 0;
+	//		}
+	//		Colliding_Left = true;
+	//	}
 
-		else if ((C2->rect.x ) > C1->rect.w)
-		{
-			if (v.x > 0)
-			{
-				v.x = 0;
-			}
-			Colliding_Right = true;
-		}
+	//	else if ((C2->rect.x ) > C1->rect.w)
+	//	{
+	//		if (v.x > 0)
+	//		{
+	//			v.x = 0;
+	//		}
+	//		Colliding_Right = true;
+	//	}
 
-		else if ((C2->rect.y + C2->rect.h) < C1->rect.y) //colliding top
-		{
-			if (v.y > 0)
-				v.y = 0;
-		}
+	//	else if ((C2->rect.y + C2->rect.h) < C1->rect.y) //colliding top
+	//	{
+	//		if (v.y > 0)
+	//			v.y = 0;
+	//	}
 
-	}
-	else if (C2->type == COLLIDER_PLATFORM)
-	{
-		if ((C2->rect.y - v.y + 1) > (C1->rect.y + C1->rect.h)) // collides when player is above the platform
-		{
-			if (Colliding_Ground == false)
-			{
-				v.y = 0;
+	//}
+	//else if (C2->type == COLLIDER_PLATFORM)
+	//{
+	//	if ((C2->rect.y - v.y + 1) > (C1->rect.y + C1->rect.h)) // collides when player is above the platform
+	//	{
+	//		if (Colliding_Ground == false)
+	//		{
+	//			v.y = 0;
 
-				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
-				{
-					v.x = 0;
-					state = IDLE;
-				}
-				else if (v.x < 0)
-				{
-					state = LEFT;
-				}
-				else if (v.x > 0)
-				{
-					state = RIGHT;
-				}
-				Colliding_Ground = true;
-				//FX colliding ground;
-			}
-			collidingfloor = C2;
-		}
-	}
+	//			if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
+	//			{
+	//				v.x = 0;
+	//				state = IDLE;
+	//			}
+	//			else if (v.x < 0)
+	//			{
+	//				state = LEFT;
+	//			}
+	//			else if (v.x > 0)
+	//			{
+	//				state = RIGHT;
+	//			}
+	//			Colliding_Ground = true;
+	//			//FX colliding ground;
+	//		}
+	//		collidingfloor = C2;
+	//	}
+	//}
 
 
 	
@@ -123,7 +123,7 @@ void j1Logic::OnCollision(Collider* C1, Collider* C2)
 
 void j1Logic::SetAnimation() 
 {
-	if (v.x > 0)
+	if (velocity.x > 0)
 	{
 		if (state == JUMP)
 		{
@@ -138,7 +138,7 @@ void j1Logic::SetAnimation()
 			animation = &right;
 		}
 	}
-	else if(v.x<0)
+	else if(velocity.x<0)
 	{
 		if (state == JUMP)
 		{
