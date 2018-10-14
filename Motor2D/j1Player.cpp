@@ -157,7 +157,10 @@ bool j1Player::Start()
 	virtualPosition.y = position.y;
 
 	//audio
-
+	if (jump_fx == 0)
+		jump_fx = App->audio->LoadFx("audio/fx/jump.wav");
+	if (win_fx == 0)
+		win_fx = App->audio->LoadFx("audio/fx/win.wav");
 	return ret;
 
 }
@@ -174,6 +177,7 @@ bool j1Player::CleanUp()
 		collider = nullptr;
 	}
 
+	
 	return true;
 }
 
@@ -181,6 +185,12 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float)
 {
 	SetState();
+
+
+	if (position.x >= End_Position.x)
+	{
+		App->audio->PlayFx(win_fx, 0);
+	}
 
 	position.x += velocity.x;
 	position.y += velocity.y;
@@ -261,8 +271,9 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   {
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	virtualPosition.x = data.attribute("position_x").as_int();
-	virtualPosition.y = data.attribute("position_y").as_int();
+	App->scene->LoadLevel(data.attribute("level").as_int());
+	position.x = data.attribute("position_x").as_int();
+	position.y = data.attribute("position_y").as_int();
 
 	return true;
 }
@@ -273,6 +284,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 	data.append_attribute("position_y") = position.y - 5;
 
+	data.append_attribute("level") = App->scene->current_level->data->lvl;
 	
 	return true;
 }
@@ -300,8 +312,11 @@ void j1Player::SetState()
 		}
 		else if (hold_left)state = LEFT;
 		
-		if (space)state = JUMP;
-		
+		if (space)
+		{
+			state = JUMP;
+			App->audio->PlayFx(jump_fx, 0);
+		}
 		break;
 
 	case RIGHT:

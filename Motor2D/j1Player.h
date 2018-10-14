@@ -38,6 +38,9 @@ public:
 	fPoint colliderMove;
 
 	bool doublejump;
+
+	uint win_fx;
+	uint jump_fx;
 	
 public:
 };
