@@ -184,21 +184,37 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float)
 {
+	//State
 	SetState();
+	//
 
+	//Input
+	SetActions();
+	//
 
+	//WinFx
 	if (position.x >= End_Position.x)
 	{
 		App->audio->PlayFx(win_fx, 0);
 	}
+	//
 
+	//gravity
+	if (state != JUMP) 
+	{
+		if (velocity.y < 3)
+			velocity.y = gravity;
+		
+	}
+	//
+
+	//position update
 	position.x += velocity.x;
 	position.y += velocity.y;
-	
-	if (velocity.y < 6)
-		velocity.y = 6;
-	
 	//
+
+	
+	
 
 	//Player Colider
 	collider->SetPos(position.x, position.y);
@@ -209,9 +225,7 @@ bool j1Player::Update(float)
 	SetAnimation();
 	//
 
-	//Input
-	SetActions();
-	//
+
 	
 	
 	
@@ -234,7 +248,7 @@ bool j1Player::PostUpdate()
 
 	
 
-	LOG("Speed on Y axis : %i", velocity.y);
+	
 	
 	float windows_scale = App->win->GetScale();
 	RelCamPositionX = App->player->position.x + App->render->camera.x / windows_scale ;
@@ -258,6 +272,7 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   {
 			position.y = C2->rect.y - C1->rect.h;
 			velocity.y = 0;
 			state = IDLE;
+			Colliding_Ground = true;
 			
 		}
 		break;
@@ -328,16 +343,38 @@ void j1Player::SetState()
 		break;
 
 	case FALL:
-		jumping_left.Reset();
-		jumping_right.Reset();
+		/*jumping_left.Reset();
+		jumping_right.Reset();*/
 		if (FALLING && space)
 		{
 			state = JUMP;
 			FALLING = false;
 		}
+		else if (FALLING&&Colliding_Ground) {
+			state = IDLE;
+		}
 		
 		break;
+
+	case JUMP:
+		if (jumping_right.Finished()) 
+		{
+			jumping_right.Reset();
+			state = IDLE;
+
+		}
+		if (jumping_left.Finished()) 
+		{
+			jumping_left.Reset();
+			state = IDLE;
+		}
+		break;
+	
+
 	}
+
+	
+
 	
 
 }
@@ -356,18 +393,18 @@ void j1Player::SetActions()
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
 
-
 		if (state != JUMP && state != DEAD)
 		{
-			velocity.x = +speed;
+			//velocity.x = speed;
 			state = RIGHT;
 		}
 	}
+
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
 		if (velocity.x > 0 && state != JUMP)
 		{
-			velocity.x = 0;
+			//velocity.x = 0;
 			state = IDLE;
 		}
 	}
@@ -395,13 +432,16 @@ void j1Player::SetActions()
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
+		if(velocity.y < gravity)velocity.y -= 1;
+		if (velocity.y > gravity)
+		{
+			velocity.y += 2;
+			FALLING = true;
+		}
 
-		velocity.y += jump_intensity;
-		velocity.x += jump_intensity;
-
+	
+		state = JUMP;
+		
 	}
-
-	//
-
 
 }
