@@ -36,41 +36,6 @@ struct MapLayer
 
 	// TODO 6: Short function to get the value of x,y
 
-struct ImageLayer
-{
-	p2SString name;
-	SDL_Texture* texture;
-	int offset_x;
-	int offset_y;
-	int width;
-	int height;
-	fPoint position;
-	float speed = 0;
-	bool constant_movement = false;
-
-	ImageLayer()
-	{}
-
-	ImageLayer(ImageLayer* copy)
-	{
-		name = copy->name;
-		texture = copy->texture;
-		offset_x = copy->offset_x;
-		offset_y = copy->offset_y;
-		width = copy->width;
-		height = copy->height;
-		position = copy->position;
-		speed = copy->speed;
-		constant_movement = copy->constant_movement;
-	}
-
-	~ImageLayer()
-	{
-		App->tex->UnLoad(texture);
-		texture = nullptr;
-	}
-
-};
 
 
 // ----------------------------------------------------
@@ -116,7 +81,6 @@ struct MapData
 	p2List<MapLayer*>	maplayers;
 	p2List<Collider*>	colliders;
 	// TODO 2: Add a list/array of layers to the map!
-	p2List<ImageLayer*>	imagelayers;
 };
 
 // ----------------------------------------------------
@@ -153,7 +117,6 @@ private:
 	 bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	 bool LoadColliders(pugi::xml_node& node);
 	 bool LoadLogic(pugi::xml_node& node, int& map_length);
-	 bool LoadImageLayer(pugi::xml_node& node, ImageLayer* setLayer);
 
 
 

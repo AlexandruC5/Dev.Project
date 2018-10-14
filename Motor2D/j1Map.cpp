@@ -34,17 +34,7 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 	App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 0.5f);
-	p2List_item<ImageLayer*>* image = nullptr;
-	for (image = data.imagelayers.start; image; image = image->next)
-	{
-		SDL_Texture* texture = image->data->texture;
-		SDL_Rect section = { 0, 0, image->data->width, image->data->height };
-		if (image->data->position.x < -image->data->width)
-		{
-			image->data->position.x = image->data->width;
-		}
-		App->render->Blit(texture, image->data->position.x, image->data->position.y, &section);
-	}
+	
 	
 	
 	p2List_item<MapLayer*>* item_layer = data.maplayers.start;
@@ -128,14 +118,7 @@ bool j1Map::CleanUp()
 	}
 	data.colliders.clear();
 
-	p2List_item<ImageLayer*>* image;
-	image = data.imagelayers.start;
-	while (image != NULL)
-	{
-		RELEASE(image->data);
-		image = image->next;
-	}
-	data.imagelayers.clear();
+	
 	// Clean up the pugui tree
 
 	
@@ -418,30 +401,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 }
 
 
-bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* setlayer)
-{
-	bool ret = true;
-	setlayer->name = node.attribute("name").as_string();
-	setlayer->position.x = setlayer->offset_x = node.attribute("offsetx").as_int();
-	setlayer->position.y = setlayer->offset_y = node.attribute("offsety").as_int();
 
-	pugi::xml_node image = node.child("image");
-	setlayer->width = image.attribute("widht").as_int();
-	setlayer->height = image.attribute("height").as_int();
-	setlayer->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
-
-	pugi::xml_node property;
-	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
-	{
-		p2SString name = property.attribute("name").as_string();
-		if (name == "speed")
-		{
-			setlayer->speed = property.attribute("value").as_float();
-		}
-	}
-	LOG("image loaded");
-	return ret;
-}
 
 bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
 {
