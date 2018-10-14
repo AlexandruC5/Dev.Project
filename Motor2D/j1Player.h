@@ -31,14 +31,14 @@ public:
 	SDL_Rect character;
 	SDL_Texture* graphics;
 
-
+	void GodMode();
 
 	fPoint acceleration;
 
 	fPoint colliderMove;
 
 	bool doublejump;
-
+	bool movingGodModeY;
 	uint win_fx;
 	uint jump_fx;
 	

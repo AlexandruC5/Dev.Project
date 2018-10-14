@@ -12,6 +12,7 @@ struct level
 	p2SString map_path;
 	int lvl;
 	int length;
+	int height;
 	iPoint Start_Point;
 	iPoint End_Point;
 	level(int num, char* map_path)
@@ -56,8 +57,9 @@ public:
 	p2List<level*> levels;
 	p2List_item<level*>* current_level;
 
-	int max_camera_pos;;
-	int min_camera_pos;
+	int max_camera_posX;
+	int max_camera_posY;
+
 	camera_logic cameralogic;
 
 	bool stop;

@@ -41,7 +41,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(levels.start->data->map_path.GetString(), current_level->data->length);
+	App->map->Load(levels.start->data->map_path.GetString(), current_level->data->length,current_level->data->height);
 	App->player->Start();
 
 	App->audio->PlayMusic("audio/music/backgroundmusic.ogg");
@@ -101,11 +101,11 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win_width, win_height);
 
 
-	max_camera_pos = current_level->data->length + (win_width *3) ;
-	max_camera_pos *= -1;
+	max_camera_posX = current_level->data->length + (win_width *3) ;
+	max_camera_posX *= -1;
 	
-	min_camera_pos = 0;
-
+	max_camera_posY = current_level->data->length - (win_height * 3);
+	max_camera_posY *= 1;
 		
 
 	/*if (App->player->position.x >= 0 && App->player->position.x < win_width * App->win->GetScale() / 10)
@@ -113,7 +113,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x = -15;
 
 	}*/
-	if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 2) && (App->render->virtualCamPosX > max_camera_pos)) {
+	if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 2) && (App->render->virtualCamPosX > max_camera_posX)) {
 		App->render->virtualCamPosX -= App->player->speed * 2; //to run at the same speed as the camera
 
 		
@@ -132,6 +132,13 @@ bool j1Scene::Update(float dt)
 		
 	}
 
+	if (App->player->RelCamPositionY > (win_height / App->win->GetScale() / 2) && (App->render->virtualCamPosY > max_camera_posY)) {
+		App->render->virtualCamPosY -= App->player->speed * 2;
+	}
+	if (App->player->RelCamPositionY < (win_height*App->win->GetScale() / 10) && (App->render->virtualCamPosY < App->player->position.y - win_height))
+	{
+		App->render->virtualCamPosY += App->player->speed * 2;
+	}
 	 
 	
 
@@ -145,7 +152,7 @@ bool j1Scene::Update(float dt)
 
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
-	p2SString title("HI");
+	p2SString title("Development 1st Assigment");
 					/*App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count());*/
@@ -154,7 +161,7 @@ bool j1Scene::Update(float dt)
 
 	LOG("%i", App->render->camera.x);
 	LOG("%i", App->player->position.x);
-	LOG("%f", App->render->virtualCamPosX);
+	LOG("Length: %i",current_level->data->length);
 	return true;
 }
 
@@ -214,7 +221,7 @@ void j1Scene::LoadLevel(int num)
 
 	if (current_level != nullptr)
 	{
-		App->map->Load(current_level->data->map_path.GetString(), current_level->data->length);
+		App->map->Load(current_level->data->map_path.GetString(), current_level->data->length,current_level->data->height);
 		App->player->collider = nullptr;
 		App->player->Start();
 

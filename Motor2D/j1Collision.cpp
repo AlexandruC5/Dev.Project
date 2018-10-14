@@ -4,27 +4,52 @@
 #include "j1Collision.h"
 #include "p2Log.h"
 #include "j1Player.h"
-
+#include "j1Logic.h"
 j1Collision::j1Collision()
 {
-	for (uint i = 0; i < MAX_COLLIDERS; ++i) {
-		colliders[i] == nullptr;
-		matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
-		matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
-		matrix[COLLIDER_FLOOR][COLLIDER_PLATFORM] = false;
-		
+	if (state != GOD) {
+		for (uint i = 0; i < MAX_COLLIDERS; ++i) {
+			colliders[i] == nullptr;
+			matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
+			matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
+			matrix[COLLIDER_FLOOR][COLLIDER_PLATFORM] = false;
 
-		matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
-		matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-		matrix[COLLIDER_PLAYER][COLLIDER_PLATFORM] = true;
-		
 
-		matrix[COLLIDER_PLATFORM][COLLIDER_FLOOR] = false;
-		matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = true;
-		matrix[COLLIDER_PLATFORM][COLLIDER_PLATFORM] = false;
-		
+			matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLATFORM] = true;
 
-		
+
+			matrix[COLLIDER_PLATFORM][COLLIDER_FLOOR] = false;
+			matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = true;
+			matrix[COLLIDER_PLATFORM][COLLIDER_PLATFORM] = false;
+
+
+
+		}
+	}
+
+	else if (state == GOD) 
+	{
+		for (uint i = 0; i < MAX_COLLIDERS; ++i) {
+			colliders[i] == nullptr;
+			matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
+			matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
+			matrix[COLLIDER_FLOOR][COLLIDER_PLATFORM] = false;
+
+
+			matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLATFORM] = false;
+
+
+			matrix[COLLIDER_PLATFORM][COLLIDER_FLOOR] = false;
+			matrix[COLLIDER_PLATFORM][COLLIDER_PLAYER] = false;
+			matrix[COLLIDER_PLATFORM][COLLIDER_PLATFORM] = false;
+
+
+
+		}
 	}
 	
 }

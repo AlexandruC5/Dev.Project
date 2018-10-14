@@ -197,14 +197,29 @@ bool j1Player::Update(float)
 	{
 		App->audio->PlayFx(win_fx, 0);
 	}
-	//
+	
+	//GODMODE
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (state != GOD)
+		{
+			state = GOD;
+		}
+		else state = IDLE; 
+	}
 
 	//gravity
 	if (state != JUMP) 
 	{
-		if (velocity.y < 3)
+		if (velocity.y < 3 && state !=GOD)
 			velocity.y = gravity;
-		
+		else if(state == GOD)
+		{
+			if (movingGodModeY == false)
+			{
+				velocity.y = 0;
+			}
+		}
 	}
 	//
 
@@ -223,7 +238,7 @@ bool j1Player::Update(float)
 	//Logic Module loaded
 	Logic_Update();
 	SetAnimation();
-	//
+	
 
 
 	
@@ -234,11 +249,11 @@ bool j1Player::Update(float)
 
 bool j1Player::PostUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !Colliding_Right && velocity.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !Colliding_Right && velocity.x == 0 ) //if doesnt work (state !=GOD)
 	{
 		velocity.x = speed;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !Colliding_Left && velocity.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !Colliding_Left && velocity.x == 0 )
 	{
 		velocity.x = -speed;
 	}
@@ -364,7 +379,9 @@ void j1Player::SetState()
 		else if (FALLING&&Colliding_Ground) {
 			state = IDLE;
 		}
-		
+		break;
+	case GOD:
+		GodMode();
 		break;
 
 	case JUMP:
@@ -401,59 +418,120 @@ void j1Player::SetState()
 
 void j1Player::SetActions()
 {
+	if (state != GOD) {
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+		{
 
+			if (state != JUMP && state != DEAD)
+			{
+				velocity.x = speed;
+				state = RIGHT;
+			}
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+		{
+			if (velocity.x > 0 && state != JUMP)
+			{
+				velocity.x = 0;
+				state = IDLE;
+			}
+		}
+
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+		{
+
+			if (state != JUMP && state != DEAD)
+			{
+				velocity.x = -speed;
+				state = LEFT;
+			}
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+		{
+			if (velocity.x < 0 && state != JUMP)
+			{
+				velocity.x = 0;
+				state = LEFT;
+			}
+
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (velocity.y < gravity)velocity.y -= 1;
+			if (velocity.y > gravity)
+			{
+				velocity.y += 2;
+				FALLING = true;
+			}
+
+
+			state = JUMP;
+
+		}
+	}
+
+
+}
+
+void j1Player::GodMode()
+{
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 	{
-
-		if (state != JUMP && state != DEAD)
-		{
-			velocity.x = speed;
-			state = RIGHT;
-		}
+		velocity.x = +speed;
 	}
-
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
-		if (velocity.x > 0 && state != JUMP)
+		if (velocity.x > 0)
 		{
 			velocity.x = 0;
-			state = IDLE;
 		}
-	}
 
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{
-
-		if (state != JUMP && state != DEAD)
 		{
 			velocity.x = -speed;
-			state = LEFT;
 		}
 	}
-
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
-		if (velocity.x < 0 && state != JUMP)
+		if (velocity.x < 0)
 		{
 			velocity.x = 0;
-			state = LEFT;
 		}
-
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
-		if(velocity.y < gravity)velocity.y -= 1;
-		if (velocity.y > gravity)
-		{
-			velocity.y += 2;
-			FALLING = true;
-		}
-
-	
-		state = JUMP;
-		
+		velocity.y = -speed;
+		movingGodModeY = true;
 	}
 
+	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+	{
+		if (velocity.y < 0)
+		{
+			velocity.y = 0;
+		}
+		movingGodModeY = false;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	{
+		velocity.y = speed;
+		movingGodModeY = true;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+	{
+		if (velocity.y > 0)
+		{
+			velocity.y = 0;
+		}
+		movingGodModeY = false;
+	}
 }
