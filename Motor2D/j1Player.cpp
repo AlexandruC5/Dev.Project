@@ -81,7 +81,7 @@ j1Player::j1Player()
 	idle_left.PushBack({ 378,241,49,54 });
 	idle_left.PushBack({ 428,241,47,54 });
 	idle_left.PushBack({ 476,240,47,55 });
-	idle_left.speed = 0.1f;
+	idle_left.speed = 0.2f;
 
 	//left
 	left.PushBack({ 15,303,48,54 });
@@ -92,7 +92,7 @@ j1Player::j1Player()
 	left.PushBack({ 266,303,50,54 });
 	left.PushBack({ 317,303,48,54 });
 	left.PushBack({ 366,303,45,54 });
-	left.speed = 0.1f;
+	left.speed = 0.2f;
 
 
 
@@ -371,7 +371,7 @@ void j1Player::SetState()
 	case FALL:
 		/*jumping_left.Reset();
 		jumping_right.Reset();*/
-		if (FALLING && space)
+		if (FALLING )
 		{
 			state = JUMP;
 			FALLING = false;
@@ -387,7 +387,8 @@ void j1Player::SetState()
 	case JUMP:
 		if (jumping_right.Finished()) 
 		{
-			jumping_right.Reset();
+			if(Colliding_Ground)jumping_right.Reset();
+
 			state = IDLE;
 			velocity.x = 0;
 		}
@@ -461,6 +462,8 @@ void j1Player::SetActions()
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
+			state = JUMP;
+
 			if (velocity.y < gravity)velocity.y -= 1;
 			if (velocity.y > gravity)
 			{
@@ -469,7 +472,7 @@ void j1Player::SetActions()
 			}
 
 
-			state = JUMP;
+			
 
 		}
 	}
