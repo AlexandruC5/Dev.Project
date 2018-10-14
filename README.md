@@ -33,3 +33,6 @@ https://github.com/AlexandruC5/Dev.Project
 
 ####
 A game made by **Alexandru Mihai Cercel** and **Gerard Clotet**
+***
+###Issues
+During this assigment our major goal has been to implement the colliders and make them work properly but despite our efforts we weren't able to achieve it even though we managed to implement some kind of collisions
