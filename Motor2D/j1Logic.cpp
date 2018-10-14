@@ -37,11 +37,11 @@ bool j1Logic::Logic_Update()
 }
 
 
-void j1Logic::Logic_OnCollision(Collider* C1, Collider* C2)
+void j1Logic::OnCollision(Collider* C1, Collider* C2)
 {
 	if (C2->type == COLLIDER_FLOOR)
 	{
-		if ((C2->rect.y - v.y + 1) > (C1->rect.y + C1->rect.h)) //bottom collision
+		if ((C2->rect.y - v.y ) > (C1->rect.y + C1->rect.h)) //bottom collision
 		{
 			if (Colliding_Ground == true)
 			{

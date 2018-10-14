@@ -35,7 +35,7 @@ public:
 
 	bool Logic_Update();
 
-	void Logic_OnCollision(Collider* C1, Collider* C2);
+	void OnCollision(Collider* C1, Collider* C2);
 
 	void SetAnimation();
 

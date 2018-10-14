@@ -185,11 +185,9 @@ bool j1Player::Update(float)
 	SetAnimation();
 	//
 	
-	//Gravity
-	v.y += gravity;
-	position.y = v.y;
-	//
+	
 
+	
 
 
 
@@ -237,7 +235,7 @@ bool j1Player::Update(float)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		
-		v.y = jump_intensity;
+		v.y += jump_intensity;
 		//state = JUMP;
 	
 	}
@@ -292,15 +290,67 @@ bool j1Player::PostUpdate()
 
 void j1Player::OnCollision(Collider* C1, Collider* C2)   //t0 reset double jump
 {
-	if (C2->type == COLLIDER_FLOOR || C2->type == COLLIDER_PLATFORM)
+
+	//Gravity
+	v.y += gravity;
+	position.y = v.y;
+	//
+
+	if (C2->type == COLLIDER_FLOOR)
 	{
-		if ((C2->rect.y - v.y + 1) > (C1->rect.y + (C1->rect.h)))
+		if ((C2->rect.y - v.y ) < (C1->rect.h)) //bottom collision
 		{
-			bool doublejump = false;
+			v.y = 0;
+
+		}
+
+		else if ((C2->rect.x + C2->rect.w) < (C1->rect.x ))
+		{
+			if (v.x < 0)
+			{
+				v.x = 0;
+			}
+		}
+
+		else if ((C2->rect.x) > C1->rect.w)
+		{
+			if (v.x > 0)
+			{
+				v.x = 0;
+			}
+			Colliding_Right = true;
+		}
+
+		else if ((C2->rect.y + C2->rect.h) < C1->rect.y) //colliding top
+		{
+			if (v.y > 0)
+				v.y = 0;
+		}
+
+	}
+	else if (C2->type == COLLIDER_PLATFORM)
+	{
+		if ((C2->rect.y - v.y ) > (C1->rect.y + C1->rect.h)) // collides when player is above the platform
+		{
+			
+				v.y = 0;
+
+				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
+				{
+					v.x = 0;
+					state = IDLE;
+				}
+				else if (v.x < 0)
+				{
+					state = LEFT;
+				}
+				else if (v.x > 0)
+				{
+					state = RIGHT;
+				}
+			
 		}
 	}
-
-		Logic_OnCollision(C1, C2);
 }
 
 bool j1Player::Load(pugi::xml_node& data)
