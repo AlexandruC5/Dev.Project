@@ -184,8 +184,18 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float)
 {
+<<<<<<< HEAD
+=======
+	//State
+	SetState();
+	//
+>>>>>>> cb98fa555268c4b2592193103c83fd85d3aa24b4
 
+	//Input
+	SetActions();
+	//
 
+<<<<<<< HEAD
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (state != GOD)
@@ -204,15 +214,35 @@ bool j1Player::Update(float)
 		velocity.y = 0; //GOD gravity
 
 	}
+=======
+	//WinFx
+>>>>>>> cb98fa555268c4b2592193103c83fd85d3aa24b4
 	if (position.x >= End_Position.x)
 	{
 		App->audio->PlayFx(win_fx, 0);
 	}
+	//
 
+	//gravity
+	if (state != JUMP) 
+	{
+		if (velocity.y < 3)
+			velocity.y = gravity;
+		
+	}
+	//
+
+	//position update
 	position.x += velocity.x;
 	position.y += velocity.y;
+	//
+
 	
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> cb98fa555268c4b2592193103c83fd85d3aa24b4
 	//Player Colider
 	collider->SetPos(position.x, position.y);
 	//
@@ -222,9 +252,7 @@ bool j1Player::Update(float)
 	SetAnimation();
 	//
 
-	//Input
-	SetActions();
-	//
+
 	
 	
 	
@@ -250,7 +278,7 @@ bool j1Player::PostUpdate()
 
 	
 
-	LOG("Speed on Y axis : %i", velocity.y);
+	
 	
 	float windows_scale = App->win->GetScale();
 	RelCamPositionX = App->player->position.x + App->render->camera.x / windows_scale ;
@@ -274,7 +302,19 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   {
 			position.y = C2->rect.y - C1->rect.h;
 			velocity.y = 0;
 			state = IDLE;
+			Colliding_Ground = true;
 			
+		}
+
+		break;
+	case COLLIDER_PLATFORM:
+		if (C1->rect.h < position.y + C2->rect.y)
+		{
+			position.y = C2->rect.y - C1->rect.h;
+			velocity.y = 0;
+			state = IDLE;
+			Colliding_Ground = true;
+
 		}
 		break;
 	}
@@ -344,21 +384,46 @@ void j1Player::SetState()
 		break;
 
 	case FALL:
-		jumping_left.Reset();
-		jumping_right.Reset();
+		/*jumping_left.Reset();
+		jumping_right.Reset();*/
 		if (FALLING && space)
 		{
 			state = JUMP;
 			FALLING = false;
 		}
+		else if (FALLING&&Colliding_Ground) {
+			state = IDLE;
+		}
 		
 		break;
 
+<<<<<<< HEAD
 	case GOD:
 		
 		GodMode();
 		break;
+=======
+	case JUMP:
+		if (jumping_right.Finished()) 
+		{
+			jumping_right.Reset();
+			state = IDLE;
+			velocity.x = 0;
+		}
+		if (jumping_left.Finished()) 
+		{
+			jumping_left.Reset();
+			state = IDLE;
+			velocity.x = 0;
+		}
+		break;
+	
+
+>>>>>>> cb98fa555268c4b2592193103c83fd85d3aa24b4
 	}
+
+	
+
 	
 
 }
@@ -378,6 +443,7 @@ void j1Player::SetActions()
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 		{
 
+<<<<<<< HEAD
 
 			if (state != JUMP && state != DEAD)
 			{
@@ -396,6 +462,18 @@ void j1Player::SetActions()
 
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+=======
+		if (state != JUMP && state != DEAD)
+		{
+			velocity.x = speed;
+			state = RIGHT;
+		}
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+	{
+		if (velocity.x > 0 && state != JUMP)
+>>>>>>> cb98fa555268c4b2592193103c83fd85d3aa24b4
 		{
 
 			if (state != JUMP && state != DEAD)
@@ -449,6 +527,7 @@ void j1Player::SetActions()
 		}
 
 
+<<<<<<< HEAD
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 		{
 				velocity.x = -speed;
@@ -516,4 +595,20 @@ void j1Player::GodMode()
 	{ 
 		position.x -= speed;
 	}
+=======
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		if(velocity.y < gravity)velocity.y -= 1;
+		if (velocity.y > gravity)
+		{
+			velocity.y += 2;
+			FALLING = true;
+		}
+
+	
+		state = JUMP;
+		
+	}
+
+>>>>>>> cb98fa555268c4b2592193103c83fd85d3aa24b4
 }
