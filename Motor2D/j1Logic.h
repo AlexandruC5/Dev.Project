@@ -14,8 +14,7 @@ enum player_logic
 	LEFT,
 	JUMP,
 	DEAD,
-	FALL,
-	GOD
+	FALL
 };
 
 enum camera_logic

@@ -41,7 +41,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(levels.start->data->map_path.GetString(), current_level->data->length, current_level->data->heigth);
+	App->map->Load(levels.start->data->map_path.GetString(), current_level->data->length);
 	App->player->Start();
 
 	App->audio->PlayMusic("audio/music/backgroundmusic.ogg");
@@ -57,6 +57,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
 	
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
@@ -100,11 +101,10 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win_width, win_height);
 
 
-	max_camera_posX = current_level->data->length + (win_width *3) ;
-	max_camera_posX *= -1;
+	max_camera_pos = current_level->data->length + (win_width *3) ;
+	max_camera_pos *= -1;
 	
-	max_camera_posY = current_level->data->length - (win_height * 2);
-//	max_camera_posY = current_level->data->hei
+	min_camera_pos = 0;
 
 		
 
@@ -113,7 +113,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x = -15;
 
 	}*/
-	if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 2) && (App->render->virtualCamPosX > max_camera_posX)) {
+	if (App->player->RelCamPositionX > (win_width / App->win->GetScale() / 2) && (App->render->virtualCamPosX > max_camera_pos)) {
 		App->render->virtualCamPosX -= App->player->speed * 2; //to run at the same speed as the camera
 
 		
@@ -132,14 +132,7 @@ bool j1Scene::Update(float dt)
 		
 	}
 
-	if (App->player->RelCamPositionY > (win_height / App->win->GetScale() / 2) && (App->render->virtualCamPosY > max_camera_posY)) {
-		App->render->virtualCamPosY -= App->player->speed * 2;
-	}
-	if (App->player->RelCamPositionY < (win_height*App->win->GetScale() / 10) && (App->render->virtualCamPosY < App->player->position.y - win_height))
-	{
-		App->render->virtualCamPosY += App->player->speed * 2;
-	}
-	
+	 
 	
 
 	
@@ -161,7 +154,7 @@ bool j1Scene::Update(float dt)
 
 	LOG("%i", App->render->camera.x);
 	LOG("%i", App->player->position.x);
-	LOG("length: %i", current_level->data->length);
+	LOG("%f", App->render->virtualCamPosX);
 	return true;
 }
 
@@ -221,7 +214,7 @@ void j1Scene::LoadLevel(int num)
 
 	if (current_level != nullptr)
 	{
-		App->map->Load(current_level->data->map_path.GetString(), current_level->data->length,current_level->data->heigth);
+		App->map->Load(current_level->data->map_path.GetString(), current_level->data->length);
 		App->player->collider = nullptr;
 		App->player->Start();
 
