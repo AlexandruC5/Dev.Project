@@ -466,6 +466,12 @@ bool j1Map::LoadLogic(pugi::xml_node & node, int & map_length)
 			App->render->virtualCamPosY = -(App->player->position.y *(int)App->win->GetScale() -250 );
 			
 		}
+
+		if (name == "End_Point")
+		{
+			App->player->End_Position.x = object.attribute("x").as_int();
+			App->player->End_Position.y = object.attribute("y").as_int();
+		}
 	}
 
 	pugi::xml_node property;

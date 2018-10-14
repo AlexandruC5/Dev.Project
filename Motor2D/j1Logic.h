@@ -55,7 +55,7 @@ public:
 	Animation jumping_right;
 	Animation falling_left;
 	Animation falling_right;
-
+	iPoint End_Position;
 	player_logic state;
 
 	bool Colliding_Ground;
