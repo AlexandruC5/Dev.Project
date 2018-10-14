@@ -5,7 +5,7 @@
 	<textures />
 	<audio />
 	<map />
-	<player position_x="2047" position_y="1045" level="1" />
+	<player position_x="2047" position_y="1045" level="2" />
 	<scene />
 	<:anonymous />
 	<renderer>

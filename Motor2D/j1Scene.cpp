@@ -132,7 +132,7 @@ bool j1Scene::Update(float dt)
 		
 	}
 
-	if (App->player->RelCamPositionY > (win_height / App->win->GetScale() / 2) && (App->render->virtualCamPosY > max_camera_posY)) {
+	if (App->player->RelCamPositionY > (win_height / App->win->GetScale() / 2) && (App->render->virtualCamPosY < max_camera_posY)) { //camera goes down with de player
 		App->render->virtualCamPosY -= App->player->speed * 2;
 	}
 	if (App->player->RelCamPositionY < (win_height*App->win->GetScale() / 10) && (App->render->virtualCamPosY < App->player->position.y - win_height))
