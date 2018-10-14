@@ -27,6 +27,9 @@ Unzip the .zip file and execute the .exe that is contained inside the decompress
 
 **F6** - Load the saved state of the game
 
+**F9** - Debug colliders to see them
+
+**F10** - GodMode
 ***
 ##Link to GitHub repository:
 https://github.com/AlexandruC5/Dev.Project
