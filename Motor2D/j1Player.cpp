@@ -157,7 +157,10 @@ bool j1Player::Start()
 	virtualPosition.y = position.y;
 
 	//audio
-
+	if (jump_fx == 0)
+		jump_fx = App->audio->LoadFx("audio/fx/jump.wav");
+	if (win_fx == 0)
+		win_fx = App->audio->LoadFx("audio/fx/win.wav");
 	return ret;
 
 }
@@ -237,10 +240,14 @@ bool j1Player::Update(float)
 		
 		v.y += jump_intensity;
 		//state = JUMP;
+		App->audio->PlayFx(jump_fx, 0);
 	
 	}
 
-	
+	if (position.x >= End_Position.x)
+	{
+		App->audio->PlayFx(win_fx, 0);
+	}
 
 	
 
@@ -355,6 +362,7 @@ void j1Player::OnCollision(Collider* C1, Collider* C2)   //t0 reset double jump
 
 bool j1Player::Load(pugi::xml_node& data)
 {
+	App->scene->LoadLevel(data.attribute("level").as_int());
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 
@@ -365,8 +373,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 {
 	data.append_attribute("position_x") = position.x;
 
-	data.append_attribute("position_y") = position.y - 5;
+	data.append_attribute("position_y") = position.y ;
 
-	
+	data.append_attribute("level") = App->scene->current_level->data->lvl;
 	return true;
 }
