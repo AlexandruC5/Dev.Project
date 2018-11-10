@@ -5,10 +5,10 @@
 	<textures />
 	<audio />
 	<map />
-	<player position_x="2203" position_y="1809" level="1" x="-1716" y="-3242" />
+	<player position_x="63" position_y="1385" level="2" x="282" y="-2400" />
 	<scene />
 	<:anonymous />
 	<renderer>
-		<camera x="-1716" y="-3242" />
+		<camera x="282" y="-2400" />
 	</renderer>
 </game_state>
